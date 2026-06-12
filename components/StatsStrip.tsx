@@ -46,15 +46,16 @@ export default function StatsStrip() {
         >
           {stats.map((stat, idx) => (
             <motion.div key={idx} variants={itemVariants}>
-              <GlassCard className="text-center h-full flex flex-col justify-center">
-                <div className="text-4xl sm:text-5xl font-bold text-blue-900">
+              <GlassCard className="text-center h-full flex flex-col justify-center border-2 border-blue-100 hover:border-orange-500/50 hover:shadow-2xl hover:shadow-orange-200/50 transition-all duration-300 group">
+                <div className="text-4xl sm:text-5xl font-bold text-blue-900 group-hover:text-orange-600 transition-colors duration-300">
                   <AnimatedCounter target={stat.target} suffix={stat.suffix} />
                 </div>
-                <p className="text-gray-600 text-sm sm:text-base mt-2 font-medium">
+                <p className="text-gray-600 text-sm sm:text-base mt-2 font-medium group-hover:text-gray-900 transition-colors duration-300">
                   {stat.label}
                 </p>
               </GlassCard>
             </motion.div>
+
           ))}
         </motion.div>
       </div>

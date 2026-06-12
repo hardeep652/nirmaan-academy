@@ -90,7 +90,7 @@ export default function HeroSection() {
               variants={itemVariants}
               className="text-white font-sora font-bold leading-tight"
               style={{
-                fontSize: "clamp(2rem, 5vw, 3.5rem)",
+                fontSize: "clamp(1.75rem, 4.5vw, 3.2rem)",
               }}
             >
               Build Your Engineering Future With{" "}

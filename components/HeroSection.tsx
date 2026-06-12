@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 import SectionBadge from "./ui/SectionBadge";
 import TypewriterText from "./ui/TypewriterText";
 import GlassCard from "./ui/GlassCard";
@@ -37,7 +38,7 @@ export default function HeroSection() {
   return (
     <section
       id="home"
-      className="min-h-screen flex items-center justify-center relative overflow-hidden pt-24 px-4 sm:px-6 lg:px-8"
+      className="min-h-[85vh] flex items-center justify-center relative overflow-hidden pt-32 pb-12 px-4 sm:px-6 lg:px-8"
       style={{
         background: `
           radial-gradient(circle at 20% 20%, rgba(255,166,64,0.26), transparent 24%),
@@ -144,16 +145,18 @@ export default function HeroSection() {
 
             {/* Glass Card */}
             <GlassCard className="relative z-10 p-5 shadow-2xl">
-              <div className="relative w-full rounded-[var(--radius-lg)] overflow-hidden bg-gradient-to-br from-blue-500 to-orange-500 flex items-center justify-center text-white font-semibold">
+              <div className="relative w-full rounded-[var(--radius-lg)] overflow-hidden bg-gradient-to-br from-blue-500/20 to-orange-500/20">
                 {/* Image Container */}
-                <div className="relative w-full aspect-square sm:aspect-auto sm:h-[520px] flex items-center justify-center overflow-hidden">
-                  <div className="absolute inset-0 bg-gradient-to-br from-blue-600 to-orange-600 opacity-30" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent" />
-                  <div className="relative z-10 text-center px-8">
-                    <div className="text-5xl mb-4">👨‍🏫👩‍🏫</div>
-                    <p className="text-lg font-bold">Sir & Mam</p>
-                    <p className="text-sm opacity-90">Teaching Excellence</p>
-                  </div>
+                <div className="relative w-full aspect-[4/5] sm:h-[550px] flex items-center justify-center overflow-hidden">
+                  <Image
+                    src="/sir-and-mam.png"
+                    alt="Nirmaan Academy Teachers"
+                    fill
+                    className="object-cover"
+                    priority
+                  />
+                  {/* Subtle Overlay to blend with design */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-blue-900/40 via-transparent to-transparent" />
                 </div>
               </div>
             </GlassCard>

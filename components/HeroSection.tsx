@@ -131,23 +131,30 @@ export default function HeroSection() {
             initial={{ scale: 0.85, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.15 }}
-            className="relative"
+            className="relative hidden lg:block"
           >
             {/* Glow Effect */}
             <div
-              className="absolute inset-0 rounded-[var(--radius-lg)] blur-3xl opacity-60"
+              className="absolute inset-0 rounded-[var(--radius-lg)] blur-3xl opacity-70"
               style={{
-                background: `radial-gradient(circle, rgba(255,122,0,0.4), transparent 70%)`,
+                background: `radial-gradient(circle, rgba(255,122,0,0.5), transparent 60%)`,
+                transform: "scale(1.1)",
               }}
             />
 
             {/* Glass Card */}
-            <GlassCard className="relative z-10 p-4">
-              <div className="relative h-96 sm:h-[500px] bg-gradient-to-br from-blue-400 to-orange-400 rounded-[var(--radius-lg)] flex items-center justify-center text-white font-semibold overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-br from-blue-600 to-orange-500 opacity-40" />
-                <span className="relative z-10 text-center">
-                  Teacher & Student Image
-                </span>
+            <GlassCard className="relative z-10 p-5 shadow-2xl">
+              <div className="relative w-full rounded-[var(--radius-lg)] overflow-hidden bg-gradient-to-br from-blue-500 to-orange-500 flex items-center justify-center text-white font-semibold">
+                {/* Image Container */}
+                <div className="relative w-full aspect-square sm:aspect-auto sm:h-[520px] flex items-center justify-center overflow-hidden">
+                  <div className="absolute inset-0 bg-gradient-to-br from-blue-600 to-orange-600 opacity-30" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent" />
+                  <div className="relative z-10 text-center px-8">
+                    <div className="text-5xl mb-4">👨‍🏫👩‍🏫</div>
+                    <p className="text-lg font-bold">Sir & Mam</p>
+                    <p className="text-sm opacity-90">Teaching Excellence</p>
+                  </div>
+                </div>
               </div>
             </GlassCard>
           </motion.div>

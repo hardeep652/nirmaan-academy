@@ -13,7 +13,7 @@ const features = [
   {
     title: "DDCET Special Preparation",
     description: "Structured strategy: concept building, revision, tracking",
-    icon: "bi-target",
+    icon: "bi-bullseye",
   },
   {
     title: "Engineering Subject Experts",

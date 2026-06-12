@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -41,8 +42,14 @@ export default function Footer() {
           {/* Column 1: Logo & Description */}
           <div>
             <div className="flex items-center gap-3 mb-6">
-              <div className="bg-orange-500 rounded-xl p-2 w-12 h-12 flex items-center justify-center text-white font-bold text-sm">
-                NA
+              <div className="bg-white rounded-xl p-1 overflow-hidden flex items-center justify-center w-12 h-12">
+                <Image
+                  src="/logo.png"
+                  alt="Nirmaan Academy Logo"
+                  width={48}
+                  height={48}
+                  className="object-contain"
+                />
               </div>
               <div>
                 <p className="font-bold">

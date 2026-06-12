@@ -40,6 +40,12 @@ body {
   background-color: var(--white);
 }
 
+@media (hover: hover) and (pointer: fine) {
+  * {
+    cursor: none !important;
+  }
+}
+
 h1,
 h2,
 h3,

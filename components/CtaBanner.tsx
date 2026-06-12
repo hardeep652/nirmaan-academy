@@ -31,7 +31,8 @@ export default function CtaBanner() {
             </h2>
             <p className="text-white text-opacity-90 text-lg mt-4">
               Join thousands of successful students who have achieved their
-              engineering dreams with Nirmaan Academy. Enroll now and take the
+              engineering dreams with <span className="text-blue-400 font-bold">Nirmaan</span>{" "}
+              <span className="text-orange-400 font-bold">Academy</span>. Enroll now and take the
               first step towards excellence.
             </p>
           </div>

@@ -48,10 +48,10 @@ export default function ContactSection() {
           className="text-center mb-16"
         >
           <SectionBadge text="Get In Touch" />
-          <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mt-6">
+          <h2 className="text-4xl sm:text-5xl font-bold mt-6" style={{ color: "var(--dark-blue)" }}>
             Contact Us
           </h2>
-          <p className="text-gray-600 text-lg mt-4 max-w-2xl mx-auto">
+          <p className="text-lg mt-4 max-w-2xl mx-auto" style={{ color: "var(--text-soft)" }}>
             Have questions? We'd love to hear from you. Send us a message and
             we'll respond as soon as possible.
           </p>
@@ -70,7 +70,7 @@ export default function ContactSection() {
               <form onSubmit={handleSubmit} className="space-y-6">
                 {/* Full Name */}
                 <div>
-                  <label className="block text-gray-700 font-semibold mb-2">
+                  <label className="block font-semibold mb-2" style={{ color: "var(--text-dark)" }}>
                     Full Name
                   </label>
                   <input
@@ -86,7 +86,7 @@ export default function ContactSection() {
 
                 {/* Phone */}
                 <div>
-                  <label className="block text-gray-700 font-semibold mb-2">
+                  <label className="block font-semibold mb-2" style={{ color: "var(--text-dark)" }}>
                     Phone Number
                   </label>
                   <input
@@ -102,7 +102,7 @@ export default function ContactSection() {
 
                 {/* Email */}
                 <div>
-                  <label className="block text-gray-700 font-semibold mb-2">
+                  <label className="block font-semibold mb-2" style={{ color: "var(--text-dark)" }}>
                     Email Address
                   </label>
                   <input
@@ -118,7 +118,7 @@ export default function ContactSection() {
 
                 {/* Course */}
                 <div>
-                  <label className="block text-gray-700 font-semibold mb-2">
+                  <label className="block font-semibold mb-2" style={{ color: "var(--text-dark)" }}>
                     Interested Course
                   </label>
                   <select
@@ -135,7 +135,7 @@ export default function ContactSection() {
 
                 {/* Message */}
                 <div>
-                  <label className="block text-gray-700 font-semibold mb-2">
+                  <label className="block font-semibold mb-2" style={{ color: "var(--text-dark)" }}>
                     Message
                   </label>
                   <textarea
@@ -169,13 +169,15 @@ export default function ContactSection() {
             {/* Info Card */}
             <PremiumCard>
               <h3 className="text-2xl font-bold text-gray-900 mb-8">
-                Academy Information
+                <span className="text-[#ff7a00]">Academy</span> Information
               </h3>
 
               <div className="space-y-6">
                 {/* Location */}
                 <div className="flex items-start gap-4">
-                  <span className="text-2xl">📍</span>
+                  <span className="text-2xl text-blue-600">
+                    <i className="bi bi-geo-alt-fill"></i>
+                  </span>
                   <div>
                     <p className="font-semibold text-gray-900">Address</p>
                     <p className="text-gray-600 text-sm mt-1">
@@ -186,7 +188,9 @@ export default function ContactSection() {
 
                 {/* Phone */}
                 <div className="flex items-start gap-4">
-                  <span className="text-2xl">📞</span>
+                  <span className="text-2xl text-blue-600">
+                    <i className="bi bi-telephone-fill"></i>
+                  </span>
                   <div>
                     <p className="font-semibold text-gray-900">Phone</p>
                     <p className="text-gray-600 text-sm mt-1">
@@ -197,7 +201,9 @@ export default function ContactSection() {
 
                 {/* Email */}
                 <div className="flex items-start gap-4">
-                  <span className="text-2xl">✉️</span>
+                  <span className="text-2xl text-blue-600">
+                    <i className="bi bi-envelope-fill"></i>
+                  </span>
                   <div>
                     <p className="font-semibold text-gray-900">Email</p>
                     <p className="text-gray-600 text-sm mt-1">
@@ -208,8 +214,8 @@ export default function ContactSection() {
               </div>
 
               {/* WhatsApp Button */}
-              <button className="w-full mt-8 px-6 py-3 bg-green-500 text-white font-bold rounded-lg hover:bg-green-600 transition-colors">
-                💬 WhatsApp Us
+              <button className="w-full mt-8 px-6 py-3 bg-green-500 text-white font-bold rounded-lg hover:bg-green-600 transition-colors flex items-center justify-center gap-2">
+                <i className="bi bi-whatsapp"></i> WhatsApp Us
               </button>
             </PremiumCard>
 

@@ -59,18 +59,20 @@ export default function AboutSection() {
           >
             <SectionBadge text="About Us" />
 
-            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mt-6">
+            <h2 className="text-4xl sm:text-5xl font-bold mt-6" style={{ color: "var(--dark-blue)" }}>
               Trusted by Engineering Aspirants Across Gujarat
             </h2>
 
-            <p className="text-gray-600 text-lg mt-6 leading-relaxed">
-              Nirmaan Academy was founded with a mission to transform engineering
-              education in Ahmedabad. We believe every student has the potential
-              to excel, and we provide the structured guidance, expert faculty,
-              and personalized attention needed to unlock that potential.
+            <p className="text-lg mt-6 leading-relaxed" style={{ color: "var(--text-soft)" }}>
+              <span className="text-[#0a4d9d] font-semibold">Nirmaan</span>{" "}
+              <span className="text-[#ff7a00] font-semibold">Academy</span> was
+              founded with a mission to transform engineering education in
+              Ahmedabad. We believe every student has the potential to excel,
+              and we provide the structured guidance, expert faculty, and
+              personalized attention needed to unlock that potential.
             </p>
 
-            <p className="text-gray-600 text-lg mt-4 leading-relaxed">
+            <p className="text-lg mt-4 leading-relaxed" style={{ color: "var(--text-soft)" }}>
               Our approach combines comprehensive curriculum coverage, regular
               assessments, and mentorship to ensure students not only pass
               exams but develop a deep understanding of engineering concepts
@@ -79,7 +81,7 @@ export default function AboutSection() {
 
             {/* Journey Timeline */}
             <div className="mt-10">
-              <h3 className="text-xl font-bold text-gray-900 mb-6">
+              <h3 className="text-xl font-bold mb-6" style={{ color: "var(--dark-blue)" }}>
                 Our Journey
               </h3>
               <div className="grid grid-cols-3 gap-4 sm:gap-6">

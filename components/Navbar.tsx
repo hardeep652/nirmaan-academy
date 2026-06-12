@@ -53,9 +53,10 @@ export default function Navbar() {
               </div>
             </div>
             <div className="hidden sm:flex flex-col">
-              <span className="text-white font-bold text-sm">
-                Nirmaan Academy
-              </span>
+              <div className="font-bold text-sm flex gap-1">
+                <span className="text-blue-400">Nirmaan</span>
+                <span className="text-orange-400">Academy</span>
+              </div>
               <span className="text-orange-400 text-xs">Ahmedabad</span>
             </div>
           </Link>

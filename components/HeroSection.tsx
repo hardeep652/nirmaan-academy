@@ -37,7 +37,7 @@ export default function HeroSection() {
   return (
     <section
       id="home"
-      className="min-h-screen flex items-center justify-center relative overflow-hidden pt-20 px-4 sm:px-6 lg:px-8"
+      className="min-h-screen flex items-center justify-center relative overflow-hidden pt-24 px-4 sm:px-6 lg:px-8"
       style={{
         background: `
           radial-gradient(circle at 20% 20%, rgba(255,166,64,0.26), transparent 24%),
@@ -73,14 +73,14 @@ export default function HeroSection() {
         }}
       />
 
-      <div className="relative z-10 max-w-7xl mx-auto">
-        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+      <div className="relative z-10 max-w-7xl mx-auto w-full">
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           {/* Left Column */}
           <motion.div
             variants={containerVariants}
             initial="hidden"
             animate="visible"
-            className="text-center lg:text-left"
+            className="text-center lg:text-left space-y-6"
           >
             <motion.div variants={itemVariants}>
               <SectionBadge text="DDCET Coaching in Ahmedabad" />
@@ -88,20 +88,22 @@ export default function HeroSection() {
 
             <motion.h1
               variants={itemVariants}
-              className="text-white font-sora font-bold mt-6 leading-tight"
+              className="text-white font-sora font-bold leading-tight"
               style={{
                 fontSize: "clamp(2.7rem, 6vw, 4.7rem)",
               }}
             >
-              Build Your Engineering Future With Nirmaan Academy
+              Build Your Engineering Future With{" "}
+              <span className="text-blue-400">Nirmaan</span>{" "}
+              <span className="text-orange-400">Academy</span>
             </motion.h1>
 
-            <motion.p variants={itemVariants} className="text-white text-lg mt-4">
+            <motion.p variants={itemVariants} className="text-white text-lg">
               Ahmedabad's Trusted <TypewriterText />
             </motion.p>
 
             {/* Feature List */}
-            <motion.div variants={itemVariants} className="mt-8 space-y-3">
+            <motion.div variants={itemVariants} className="space-y-3">
               {features.map((feature, idx) => (
                 <div key={idx} className="flex items-center gap-3 text-white">
                   <span className="text-green-400 text-xl">✓</span>
@@ -113,7 +115,7 @@ export default function HeroSection() {
             {/* CTA Buttons */}
             <motion.div
               variants={itemVariants}
-              className="flex flex-col sm:flex-row gap-4 mt-10 justify-center lg:justify-start"
+              className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
             >
               <button className="px-8 py-3 rounded-lg bg-white text-blue-900 font-bold hover:shadow-xl transition-shadow">
                 Apply Now

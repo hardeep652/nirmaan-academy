@@ -34,6 +34,12 @@ export default function RootLayout({
       lang="en"
       className={`${sora.variable} ${inter.variable} scroll-smooth h-full antialiased`}
     >
+      <head>
+        <link
+          rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+        />
+      </head>
       <body className="min-h-full flex flex-col bg-white">
         <SideBranding />
         {children}

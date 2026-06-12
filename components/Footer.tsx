@@ -21,10 +21,10 @@ export default function Footer() {
   };
 
   const socialIcons = [
-    { name: "Facebook", icon: "f", href: "#" },
-    { name: "Instagram", icon: "📷", href: "#" },
-    { name: "LinkedIn", icon: "in", href: "#" },
-    { name: "YouTube", icon: "▶", href: "#" },
+    { name: "Facebook", icon: "bi-facebook", href: "#" },
+    { name: "Instagram", icon: "bi-instagram", href: "#" },
+    { name: "LinkedIn", icon: "bi-linkedin", href: "#" },
+    { name: "YouTube", icon: "bi-youtube", href: "#" },
   ];
 
   return (
@@ -45,12 +45,15 @@ export default function Footer() {
                 NA
               </div>
               <div>
-                <p className="font-bold">Nirmaan Academy</p>
+                <p className="font-bold">
+                  <span className="text-blue-400">Nirmaan</span>{" "}
+                  <span className="text-orange-400">Academy</span>
+                </p>
                 <p className="text-xs text-gray-400">Ahmedabad</p>
               </div>
             </div>
             <p className="text-gray-400 text-sm leading-relaxed">
-              Nirmaan Academy is dedicated to providing quality engineering
+              <span className="text-blue-400">Nirmaan</span> <span className="text-orange-400">Academy</span> is dedicated to providing quality engineering
               education and DDCET coaching to aspiring engineers across Gujarat.
             </p>
           </div>
@@ -114,10 +117,10 @@ export default function Footer() {
                 <Link
                   key={social.name}
                   href={social.href}
-                  className="w-10 h-10 rounded-xl bg-white bg-opacity-10 flex items-center justify-center hover:bg-orange-500 hover:bg-opacity-100 transition-colors text-white"
+                  className="w-10 h-10 rounded-xl bg-white bg-opacity-10 flex items-center justify-center hover:bg-orange-500 hover:bg-opacity-100 transition-colors text-white text-xl"
                   title={social.name}
                 >
-                  {social.icon}
+                  <i className={`bi ${social.icon}`}></i>
                 </Link>
               ))}
             </div>
@@ -127,7 +130,7 @@ export default function Footer() {
         {/* Footer Bottom */}
         <div className="border-t border-gray-700 pt-8">
           <p className="text-center text-gray-400 text-sm">
-            © {currentYear} Nirmaan Academy. All rights reserved.
+            © {currentYear} <span className="text-blue-400">Nirmaan</span> <span className="text-orange-400">Academy</span>. All rights reserved.
           </p>
         </div>
       </div>

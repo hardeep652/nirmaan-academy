@@ -55,12 +55,12 @@ export default function ResultsSection() {
           className="text-center mb-16"
         >
           <SectionBadge text="Success Stories" />
-          <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mt-6">
+          <h2 className="text-4xl sm:text-5xl font-bold mt-6" style={{ color: "var(--dark-blue)" }}>
             Our Top Rankers
           </h2>
-          <p className="text-gray-600 text-lg mt-4 max-w-2xl mx-auto">
+          <p className="text-lg mt-4 max-w-2xl mx-auto" style={{ color: "var(--text-soft)" }}>
             Meet the outstanding students who achieved exceptional results
-            through Nirmaan Academy.
+            through <span className="text-[#0a4d9d] font-semibold">Nirmaan</span> <span className="text-[#ff7a00] font-semibold">Academy</span>.
           </p>
         </motion.div>
 
@@ -88,7 +88,7 @@ export default function ResultsSection() {
                   </div>
 
                   {/* Name */}
-                  <h3 className="text-lg font-bold text-gray-900 text-center">
+                  <h3 className="text-lg font-bold text-center" style={{ color: "var(--text-dark)" }}>
                     {ranker.name}
                   </h3>
 

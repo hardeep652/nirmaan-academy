@@ -6,14 +6,15 @@ export default function SideBranding() {
       <div className="flex items-center gap-8 text-center opacity-10">
         {/* Left side - NIRMAAN / ACADEMY */}
         <div
-          className="font-sora font-extrabold text-2xl tracking-widest text-blue-900"
+          className="font-sora font-extrabold text-2xl tracking-widest"
           style={{
             writingMode: "vertical-rl",
             textOrientation: "mixed",
             letterSpacing: "0.45em",
           }}
         >
-          NIRMAAN ACADEMY
+          <span className="text-[#0a4d9d]">NIRMAAN</span>{" "}
+          <span className="text-[#ff7a00]">ACADEMY</span>
         </div>
 
         {/* Right side - DDCET / ENGINEERING / SUCCESS */}

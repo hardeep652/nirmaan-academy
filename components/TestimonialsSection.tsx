@@ -10,7 +10,7 @@ const testimonials = [
     name: "Aditya Sharma",
     course: "DDCET Coaching",
     quote:
-      "Nirmaan Academy transformed my understanding of complex engineering concepts. The teachers were incredibly supportive and the mock tests helped me score 99.2% in DDCET!",
+      "<span className='text-[#0a4d9d] font-semibold'>Nirmaan</span> <span className='text-[#ff7a00] font-semibold'>Academy</span> transformed my understanding of complex engineering concepts. The teachers were incredibly supportive and the mock tests helped me score 99.2% in DDCET!",
   },
   {
     name: "Priya Desai",
@@ -22,7 +22,7 @@ const testimonials = [
     name: "Rahul Patel",
     course: "DDCET Coaching",
     quote:
-      "From concept clarity to exam strategy, Nirmaan Academy covered everything. The weekly tests and feedback sessions kept me on track throughout my preparation.",
+      "From concept clarity to exam strategy, <span className='text-[#0a4d9d] font-semibold'>Nirmaan</span> <span className='text-[#ff7a00] font-semibold'>Academy</span> covered everything. The weekly tests and feedback sessions kept me on track throughout my preparation.",
   },
 ];
 
@@ -50,11 +50,11 @@ export default function TestimonialsSection() {
           className="text-center mb-16"
         >
           <SectionBadge text="Student Feedback" />
-          <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mt-6">
+          <h2 className="text-4xl sm:text-5xl font-bold mt-6" style={{ color: "var(--dark-blue)" }}>
             What Our Students Say
           </h2>
-          <p className="text-gray-600 text-lg mt-4 max-w-2xl mx-auto">
-            Hear from students who have achieved success through Nirmaan Academy.
+          <p className="text-lg mt-4 max-w-2xl mx-auto" style={{ color: "var(--text-soft)" }}>
+            Hear from students who have achieved success through <span className='text-[#0a4d9d] font-semibold'>Nirmaan</span> <span className='text-[#ff7a00] font-semibold'>Academy</span>.
           </p>
         </motion.div>
 
@@ -84,12 +84,14 @@ export default function TestimonialsSection() {
                 </div>
 
                 {/* Quote */}
-                <p className="text-gray-700 text-lg italic leading-relaxed mb-6">
-                  "{testimonials[currentIndex].quote}"
-                </p>
+                <p 
+                  className="text-lg italic leading-relaxed mb-6"
+                  style={{ color: "var(--text-dark)" }}
+                  dangerouslySetInnerHTML={{ __html: `"${testimonials[currentIndex].quote}"` }}
+                />
 
                 {/* Name & Course */}
-                <h3 className="text-xl font-bold text-gray-900">
+                <h3 className="text-xl font-bold" style={{ color: "var(--text-dark)" }}>
                   {testimonials[currentIndex].name}
                 </h3>
                 <p className="text-orange-600 font-semibold text-sm mt-1">

@@ -27,17 +27,7 @@ const courses = [
       "Exam prep",
     ],
   },
-  {
-    title: "Admission Guidance",
-    badge: "Expert Counseling",
-    badgeColor: "bg-green-500",
-    features: [
-      "DDCET merit list",
-      "College selection",
-      "Document process",
-      "One-on-one sessions",
-    ],
-  },
+
 ];
 
 const containerVariants = {

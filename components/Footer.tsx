@@ -22,10 +22,10 @@ export default function Footer() {
   };
 
   const socialIcons = [
-    { name: "Facebook", icon: "bi-facebook", href: "#", colorClass: "text-[#1877F2]" },
-    { name: "Instagram", icon: "bi-instagram", href: "#", colorClass: "text-[#E4405F]" },
-    { name: "LinkedIn", icon: "bi-linkedin", href: "#", colorClass: "text-[#0A66C2]" },
-    { name: "YouTube", icon: "bi-youtube", href: "#", colorClass: "text-[#FF0000]" },
+    { name: "Facebook", icon: "bi-facebook", href: "https://www.facebook.com/nirmaanacademy7", colorClass: "text-[#1877F2]" },
+    { name: "Instagram", icon: "bi-instagram", href: "https://www.instagram.com/nirmaanacademy/", colorClass: "text-[#E4405F]" },
+    { name: "LinkedIn", icon: "bi-linkedin", href: "https://www.linkedin.com/company/nirmaan-academy-ahmedabad/posts/?feedView=all", colorClass: "text-[#0A66C2]" },
+    { name: "YouTube", icon: "bi-youtube", href: "https://www.youtube.com/@NIRMAANACADEMY/featured", colorClass: "text-[#FF0000]" },
   ];
 
   return (
@@ -124,6 +124,8 @@ export default function Footer() {
                 <Link
                   key={social.name}
                   href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className={`text-2xl hover:scale-110 transition-transform ${social.colorClass}`}
                   title={social.name}
                 >

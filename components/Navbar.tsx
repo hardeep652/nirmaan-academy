@@ -79,12 +79,14 @@ export default function Navbar() {
 
           {/* Desktop Buttons */}
           <div className="hidden lg:flex items-center gap-4">
-            <button className="px-6 py-2 rounded-lg text-white text-sm font-bold gradient-orange hover:shadow-lg transition-shadow">
-              Admission Open
-            </button>
-            <button className="px-6 py-2 rounded-lg text-white text-sm font-bold border-2 border-white hover:bg-white hover:text-blue-900 transition-colors">
-              Call Now
-            </button>
+            <Link
+              href="https://web.classplusapp.com/login?orgCode=nir"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-6 py-2 rounded-lg text-white text-sm font-bold gradient-orange hover:shadow-lg transition-shadow inline-block text-center"
+            >
+              Login
+            </Link>
           </div>
 
           {/* Mobile Hamburger */}
@@ -125,12 +127,15 @@ export default function Navbar() {
                 </Link>
               ))}
               <div className="flex flex-col gap-3 pt-4">
-                <button className="w-full px-4 py-2 rounded-lg text-white text-sm font-bold gradient-orange">
-                  Admission Open
-                </button>
-                <button className="w-full px-4 py-2 rounded-lg text-white text-sm font-bold border-2 border-white">
-                  Call Now
-                </button>
+                <Link
+                  href="https://web.classplusapp.com/login?orgCode=nir"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full px-4 py-2 rounded-lg text-white text-sm font-bold gradient-orange text-center inline-block"
+                  onClick={() => setIsOpen(false)}
+                >
+                  Login
+                </Link>
               </div>
             </div>
           </div>

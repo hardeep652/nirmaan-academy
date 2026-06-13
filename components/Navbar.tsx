@@ -45,22 +45,16 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-20">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-3">
-            <div className="bg-white rounded-xl p-1 overflow-hidden flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14">
+          <Link href="/" className="flex items-center gap-3 ml-4">
+            <div className="flex items-center justify-center w-16 h-16 sm:w-20 sm:h-20">
               <Image
                 src="/logo.png"
                 alt="Nirmaan Academy Logo"
-                width={56}
-                height={56}
+                width={80}
+                height={80}
                 className="object-contain"
+                unoptimized
               />
-            </div>
-            <div className="hidden sm:flex flex-col">
-              <div className="font-bold text-sm flex gap-1">
-                <span className="text-blue-400">Nirmaan</span>
-                <span className="text-orange-400">Academy</span>
-              </div>
-              <span className="text-orange-400 text-xs">Ahmedabad</span>
             </div>
           </Link>
 

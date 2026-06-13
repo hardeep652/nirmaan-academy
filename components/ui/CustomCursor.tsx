@@ -17,21 +17,19 @@ const CustomCursor = () => {
     const onMouseOver = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
       
-      // Check for clickable elements
       const isClickable = 
         target.tagName === "A" ||
         target.tagName === "BUTTON" ||
-        target.closest("button") ||
-        target.closest("a") ||
+        !!target.closest("button") ||
+        !!target.closest("a") ||
         window.getComputedStyle(target).cursor === "pointer";
       
       setIsHovering(isClickable);
 
-      // Check for input/text areas
       const isText = 
         target.tagName === "INPUT" || 
         target.tagName === "TEXTAREA" ||
-        target.isContentEditable ||
+        !!target.isContentEditable ||
         window.getComputedStyle(target).cursor === "text";
       
       setIsInput(isText);

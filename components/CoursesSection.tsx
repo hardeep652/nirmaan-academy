@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 import SectionBadge from "./ui/SectionBadge";
 import PremiumCard from "./ui/PremiumCard";
 
@@ -9,6 +10,7 @@ const courses = [
     title: "DDCET Preparation",
     badge: "Most Popular",
     badgeColor: "bg-orange-500",
+    image: "/DDCET.jpeg",
     features: [
       "Full syllabus coverage",
       "Weekly mock tests",
@@ -81,10 +83,23 @@ export default function CoursesSection() {
           {courses.map((course, idx) => (
             <motion.div key={idx} variants={itemVariants}>
               <PremiumCard className="h-full flex flex-col">
-                {/* Image Placeholder */}
-                <div className="min-h-52 rounded-lg border-2 border-dashed border-blue-300 bg-gradient-to-br from-blue-100 to-orange-100 flex items-center justify-center mb-6 text-gray-400">
-                  Course Image
-                </div>
+                {/* Image */}
+                {course.image ? (
+                  <div className="min-h-52 w-full rounded-lg overflow-hidden mb-6 relative flex items-center justify-center bg-gray-100">
+                    <Image
+                      src={course.image}
+                      alt={course.title}
+                      width={400}
+                      height={250}
+                      className="w-full h-full object-cover"
+                      unoptimized
+                    />
+                  </div>
+                ) : (
+                  <div className="min-h-52 rounded-lg border-2 border-dashed border-blue-300 bg-gradient-to-br from-blue-100 to-orange-100 flex items-center justify-center mb-6 text-gray-400">
+                    Course Image
+                  </div>
+                )}
 
                 {/* Badge */}
                 <div

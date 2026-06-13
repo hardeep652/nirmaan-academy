@@ -24,22 +24,18 @@ export default function CtaBanner() {
           <div className="text-center lg:text-left">
             <SectionBadge
               text="Admissions 2027"
-              variant="light"
             />
             <h2 className="text-3xl sm:text-4xl font-bold text-white mt-6">
-              Ready to Transform Your Engineering Journey?
+              Admissions Open For DDCET 2027
             </h2>
             <p className="text-white text-opacity-90 text-lg mt-4">
-              Join thousands of successful students who have achieved their
-              engineering dreams with <span className="text-blue-400 font-bold">Nirmaan</span>{" "}
-              <span className="text-orange-400 font-bold">Academy</span>. Enroll now and take the
-              first step towards excellence.
+              Take the next step with expert preparation, trusted faculty, and focused admission guidance.
             </p>
           </div>
 
           {/* Right Column */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-end">
-            <button className="px-8 py-3 rounded-lg bg-white text-blue-900 font-bold hover:shadow-xl transition-shadow">
+            <button className="px-8 py-3 rounded-lg gradient-orange text-white font-bold hover:shadow-xl transition-shadow">
               Apply Now
             </button>
             <button className="px-8 py-3 rounded-lg border-2 border-white text-white font-bold hover:bg-white hover:text-blue-900 transition-colors">

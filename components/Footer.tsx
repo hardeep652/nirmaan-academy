@@ -22,10 +22,10 @@ export default function Footer() {
   };
 
   const socialIcons = [
-    { name: "Facebook", icon: "bi-facebook", href: "#" },
-    { name: "Instagram", icon: "bi-instagram", href: "#" },
-    { name: "LinkedIn", icon: "bi-linkedin", href: "#" },
-    { name: "YouTube", icon: "bi-youtube", href: "#" },
+    { name: "Facebook", icon: "bi-facebook", href: "#", colorClass: "text-[#1877F2]" },
+    { name: "Instagram", icon: "bi-instagram", href: "#", colorClass: "text-[#E4405F]" },
+    { name: "LinkedIn", icon: "bi-linkedin", href: "#", colorClass: "text-[#0A66C2]" },
+    { name: "YouTube", icon: "bi-youtube", href: "#", colorClass: "text-[#FF0000]" },
   ];
 
   return (
@@ -119,12 +119,12 @@ export default function Footer() {
 
             {/* Social Icons */}
             <h5 className="font-semibold text-sm mb-3">Follow Us</h5>
-            <div className="flex gap-3">
+            <div className="flex gap-4 mt-4">
               {socialIcons.map((social) => (
                 <Link
                   key={social.name}
                   href={social.href}
-                  className="w-10 h-10 rounded-xl bg-white bg-opacity-10 flex items-center justify-center hover:bg-orange-500 hover:bg-opacity-100 transition-colors text-white text-xl"
+                  className={`text-2xl hover:scale-110 transition-transform ${social.colorClass}`}
                   title={social.name}
                 >
                   <i className={`bi ${social.icon}`}></i>

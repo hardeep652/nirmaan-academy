@@ -3,6 +3,7 @@ import { Sora, Inter } from "next/font/google";
 import "./globals.css";
 import SideBranding from "@/components/SideBranding";
 import CustomCursor from "@/components/ui/CustomCursor";
+import InstantCallback from "@/components/InstantCallback";
 
 const sora = Sora({
   variable: "--font-sora",
@@ -44,6 +45,7 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col bg-white">
         <CustomCursor />
         <SideBranding />
+        <InstantCallback />
         {children}
       </body>
     </html>

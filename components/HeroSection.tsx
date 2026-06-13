@@ -118,7 +118,7 @@ export default function HeroSection() {
               variants={itemVariants}
               className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
             >
-              <button className="px-8 py-3 rounded-lg bg-white text-blue-900 font-bold hover:shadow-xl transition-shadow">
+              <button className="px-8 py-3 rounded-lg gradient-orange text-white font-bold hover:shadow-xl transition-shadow">
                 Apply Now
               </button>
               <button className="px-8 py-3 rounded-lg border-2 border-white text-white font-bold hover:bg-white hover:text-blue-900 transition-colors">

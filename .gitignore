@@ -1,0 +1,11 @@
+.vscode/
+package-lock.json
+
+# Frontend
+nirmaan-academy/node_modules/
+nirmaan-academy/.next/
+nirmaan-academy/.env.local
+
+# Backend
+nirmaanbackend/target/
+nirmaanbackend/src/main/resources/application.properties

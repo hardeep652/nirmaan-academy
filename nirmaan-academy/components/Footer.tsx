@@ -23,7 +23,7 @@ export default function Footer() {
     >
       <div className="max-w-7xl mx-auto">
         {/* Footer Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
           {/* Column 1: Logo & Description */}
           <div>
             <div className="flex items-center gap-3 mb-6">
@@ -52,37 +52,15 @@ export default function Footer() {
             </p>
           </div>
 
-          {/* Column 2: Quick Links */}
-          <div>
-            <h4 className="font-bold text-lg mb-6">Quick Links</h4>
-            <ul className="space-y-3">
-              <li>
-                <Link href="/" className="text-gray-400 hover:text-orange-400 transition-colors text-sm">Home</Link>
-              </li>
-              <li>
-                <Link href="/about" className="text-gray-400 hover:text-orange-400 transition-colors text-sm">About</Link>
-              </li>
-              <li>
-                <Link href="/courses" className="text-gray-400 hover:text-orange-400 transition-colors text-sm">Courses</Link>
-              </li>
-              <li>
-                <Link href="/#results" className="text-gray-400 hover:text-orange-400 transition-colors text-sm">Results</Link>
-              </li>
-              <li>
-                <Link href="/gallery" className="text-gray-400 hover:text-orange-400 transition-colors text-sm">Gallery</Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* Column 3: Our Programs */}
-          <div>
+          {/* Column 2: Our Programs */}
+          <div className="lg:ml-12 xl:ml-24">
             <h4 className="font-bold text-lg mb-6">Our Programs</h4>
             <ul className="space-y-3">
               <li>
                 <Link href="#courses" className="text-gray-400 hover:text-orange-400 transition-colors text-sm">Diploma in Engineering (D.E)</Link>
               </li>
               <li>
-                <Link href="#courses" className="text-gray-400 hover:text-orange-400 transition-colors text-sm">DDCET</Link>
+                <Link href="#courses" className="text-gray-400 hover:text-orange-400 transition-colors text-sm">Diploma to Degree Entrance Test (DDCET)</Link>
               </li>
               <li>
                 <Link href="#courses" className="text-gray-400 hover:text-orange-400 transition-colors text-sm">Bachelor of Engineering (B.E)</Link>
@@ -90,8 +68,8 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Column 4: Contact & Social */}
-          <div>
+          {/* Column 3: Contact & Social */}
+          <div className="lg:ml-12 xl:ml-24">
             <h4 className="font-bold text-lg mb-6">Contact</h4>
             <div className="space-y-3 mb-6">
               <p className="text-gray-400 text-sm">
@@ -126,6 +104,9 @@ export default function Footer() {
         <div className="border-t border-gray-700 pt-8">
           <p className="text-center text-gray-400 text-sm">
             © {currentYear} <span className="text-blue-400">Nirmaan</span> <span className="text-orange-400">Academy</span>. All rights reserved.
+          </p>
+          <p className="text-center text-gray-500 text-xs mt-2">
+            Developed by <span className="text-blue-400">Harsh Darji</span> & <span className="text-orange-400">HardeepSinh Parmar</span>
           </p>
         </div>
       </div>

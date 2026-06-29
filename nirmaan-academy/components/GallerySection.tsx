@@ -4,7 +4,16 @@ import { motion } from "framer-motion";
 import SectionBadge from "./ui/SectionBadge";
 import { useState } from "react";
 
-const categories = [
+interface Category {
+  label: string;
+  color: string;
+  imageCount: number;
+  smallVideo?: boolean;
+  videos?: (string | undefined)[];
+  images?: (string | undefined)[];
+}
+
+const categories: Category[] = [
   {
     label: "Class Room",
     color: "from-blue-500 to-cyan-400",

@@ -9,3 +9,4 @@ nirmaan-academy/.env.local
 # Backend
 nirmaanbackend/target/
 nirmaanbackend/src/main/resources/application.properties
+node_modules

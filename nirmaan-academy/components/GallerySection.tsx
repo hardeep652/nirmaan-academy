@@ -25,7 +25,7 @@ const categories: Category[] = [
   {
     label: "Result Celebration",
     color: "from-emerald-500 to-teal-400",
-    imageCount: 10,
+    imageCount: 8,
     smallVideo: true,
     videos: [
       "https://res.cloudinary.com/dkzmths4e/video/upload/q_auto:good/v1781895514/ylsqtd67vrweko4armam.mp4",
@@ -38,10 +38,8 @@ const categories: Category[] = [
       "https://res.cloudinary.com/dkzmths4e/image/upload/v1781894995/ffd4eiw0owkeytgbhddm.png",
       "https://res.cloudinary.com/dkzmths4e/image/upload/v1781858007/j0m0u1trqbprkfq0e44s.jpg",
       "https://res.cloudinary.com/dkzmths4e/image/upload/v1781857404/jb6dnntxta3rpwfh6hzt.jpg",
-      "https://res.cloudinary.com/dkzmths4e/image/upload/v1781857400/me6ihyrxjc4f91awtfmt.jpg",
       "https://res.cloudinary.com/dkzmths4e/image/upload/v1781857401/vpnbv7s3pzvc7yvxp7dl.jpg",
       "https://res.cloudinary.com/dkzmths4e/image/upload/v1781857400/dxpp1fhprvatdeaqeljt.jpg",
-      "https://res.cloudinary.com/dkzmths4e/image/upload/v1781857399/c1jaqjvildfg1mjmmacs.jpg",
     ],
   },
   {
@@ -73,6 +71,12 @@ const categories: Category[] = [
       "https://res.cloudinary.com/dkzmths4e/image/upload/v1781894642/fnwzroioitxjnnkiray1.png",
     ],
   },
+];
+
+const celebration2025Images = [
+  "https://res.cloudinary.com/dkzmths4e/image/upload/v1782745772/fiv38yrujifyovlkjcrg.jpg",
+  "https://res.cloudinary.com/dkzmths4e/image/upload/v1782745771/trambns1celtquu7p0ou.jpg",
+  "https://res.cloudinary.com/dkzmths4e/image/upload/v1782745772/n1iaksqeweynacrk69hi.jpg",
 ];
 
 export default function GallerySection() {
@@ -143,6 +147,27 @@ export default function GallerySection() {
                     ) : null
                   )}
                   </div>
+                  {category.label === "Result Celebration" && (
+                    <div className="grid grid-cols-2 md:grid-cols-3 gap-4 sm:gap-5 mb-4 sm:mb-5">
+                      {celebration2025Images.map((url, imgIdx) => (
+                        <motion.div
+                          key={`2025-img-${imgIdx}`}
+                          initial={{ opacity: 0, scale: 0.9 }}
+                          whileInView={{ opacity: 1, scale: 1 }}
+                          viewport={{ once: true }}
+                          transition={{ delay: imgIdx * 0.08 }}
+                          onClick={() => setSelectedImage(`2025-${imgIdx}`)}
+                          className="relative overflow-hidden rounded-2xl shadow-lg cursor-pointer group aspect-video"
+                        >
+                          <img
+                            src={url}
+                            alt={`2025 Celebration ${imgIdx + 1}`}
+                            className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                          />
+                        </motion.div>
+                      ))}
+                    </div>
+                  )}
                 </>
               )}
 
@@ -151,7 +176,9 @@ export default function GallerySection() {
               )}
               <div className={`grid gap-4 sm:gap-5 ${
                 category.imageCount === 4 || category.imageCount === 8
-                  ? "grid-cols-2 md:grid-cols-4"
+                  ? category.label === "Result Celebration"
+                    ? "grid-cols-2 md:grid-cols-3"
+                    : "grid-cols-2 md:grid-cols-4"
                   : category.imageCount === 5
                   ? "grid-cols-2 md:grid-cols-3"
                   : "grid-cols-1 sm:grid-cols-2 md:grid-cols-3"
@@ -242,6 +269,17 @@ export default function GallerySection() {
               style={{ maxHeight: "90vh" }}
             >
               {(() => {
+                if (selectedImage.startsWith("2025-")) {
+                  const imgIdx = parseInt(selectedImage.split("-")[1]);
+                  const imageUrl = celebration2025Images[imgIdx];
+                  return imageUrl ? (
+                    <img
+                      src={imageUrl}
+                      alt={`2025 Celebration ${imgIdx + 1}`}
+                      className="w-full h-auto max-h-[90vh] object-contain rounded-2xl"
+                    />
+                  ) : null;
+                }
                 const [catStr, imgStr] = selectedImage.split("-");
                 const catIdx = parseInt(catStr);
                 const imgIdx = parseInt(imgStr);

@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
-import { Sora, Inter } from "next/font/google";
+import { Sora, Inter, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import SideBranding from "@/components/SideBranding";
 import CustomCursor from "@/components/ui/CustomCursor";
 import InstantCallback from "@/components/InstantCallback";
 import SecurityEnforcer from "@/components/SecurityEnforcer";
+import Preloader from "@/components/Preloader";
 import AppwriteInitializer from "@/components/AppwriteInitializer";
 
 const sora = Sora({
@@ -17,6 +18,12 @@ const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
   weight: ["400", "500", "600"],
+});
+
+const playfair = Playfair_Display({
+  variable: "--font-playfair",
+  subsets: ["latin"],
+  weight: ["700"],
 });
 
 export const metadata: Metadata = {
@@ -36,7 +43,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${sora.variable} ${inter.variable} scroll-smooth h-full antialiased`}
+      className={`${sora.variable} ${inter.variable} ${playfair.variable} scroll-smooth h-full antialiased`}
     >
       <head>
         <link
@@ -45,6 +52,7 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-full flex flex-col bg-white">
+        <Preloader />
         <AppwriteInitializer />
         <SecurityEnforcer />
         <CustomCursor />

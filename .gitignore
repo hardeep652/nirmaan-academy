@@ -1,9 +1,12 @@
 .vscode/
 package-lock.json
+next-env.d.ts
+tsconfig.tsbuildinfo
 
 # Frontend
 nirmaan-academy/node_modules/
 nirmaan-academy/.next/
+.next/
 nirmaan-academy/.env.local
 
 # Backend

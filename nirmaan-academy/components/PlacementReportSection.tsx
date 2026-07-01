@@ -34,7 +34,7 @@ export default function PlacementReportSection() {
         const grouped: Record<string, StudentData[]> = {};
 
         for (const year of YEARS) {
-          const res = await fetch(`http://localhost:8080/student/api/getByYear/${year}`);
+          const res = await fetch(`/api/students/year/${year}`);
           if (res.ok) {
             const students: StudentData[] = await res.json();
             if (students.length > 0) {

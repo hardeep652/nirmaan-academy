@@ -36,13 +36,11 @@ export default function NirmaanPreloader() {
       cancelledRef.current = true;
       setDismissing(true);
 
-      setTimeout(() => {
-        document.body.dataset.preloader = "done";
-      }, 250);
+      document.body.dataset.preloader = "done";
 
       setTimeout(() => {
         setMounted(false);
-      }, 700);
+      }, 600);
     };
 
     const onReady = () => {
@@ -72,10 +70,8 @@ export default function NirmaanPreloader() {
       if (cancelledRef.current) return;
       cancelledRef.current = true;
       setDismissing(true);
-      setTimeout(() => {
-        document.body.dataset.preloader = "done";
-      }, 250);
-      setTimeout(() => setMounted(false), 700);
+      document.body.dataset.preloader = "done";
+      setTimeout(() => setMounted(false), 600);
     }, FALLBACK_TIMEOUT_MS);
     return () => clearTimeout(timer);
   }, []);
@@ -100,7 +96,7 @@ export default function NirmaanPreloader() {
               backgroundRepeat: "no-repeat",
             }}
             animate={{ opacity: dismissing ? 0 : 1 }}
-            transition={{ duration: 0.7, ease: "easeInOut", delay: 0.3 }}
+            transition={{ duration: 0.7, ease: "easeInOut" }}
           />
 
           {/* Logo */}

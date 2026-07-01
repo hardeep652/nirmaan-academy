@@ -3,14 +3,14 @@ import { prisma } from "@/lib/prisma";
 
 export async function GET() {
   try {
-    const students = await prisma.studentData.findMany({
+    const students = await prisma.student_data.findMany({
       where: { featured: true },
-      orderBy: { displayOrder: "asc" },
+      orderBy: { display_order: "asc" },
     });
 
     const topRankers = students.map((s) => ({
-      imageUrl: s.imageUrl,
-      studentName: s.studentName,
+      imageUrl: s.image_url,
+      studentName: s.student_name,
       course: s.course,
       percentage: s.marks,
     }));

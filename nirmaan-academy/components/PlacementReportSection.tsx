@@ -12,12 +12,9 @@ interface StudentData {
   imageUrl: string;
   course: string;
   rank: number;
-  marks?: number;           // ← Changed from percentage to marks
+  marks?: number;
   collegeName?: string;
-  branchName?: string;
-  admissionYear: number;
   achievementYear?: number;
-  testimonial?: string;
   featured?: boolean;
   displayOrder?: number;
 }
@@ -115,14 +112,14 @@ export default function PlacementReportSection() {
                 {students.map((student) => (
                   <motion.div key={student.id} variants={itemVariants}>
                     <GlassCard className="h-full">
-                      <div className="flex flex-col sm:flex-row gap-4 sm:gap-6">
+                      <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:gap-6">
                         {/* Photo */}
-                        <div className="w-full sm:w-24 h-48 sm:h-24 rounded-lg bg-gradient-to-br from-blue-300 to-orange-300 flex-shrink-0 flex items-center justify-center text-gray-400 text-sm font-semibold overflow-hidden">
+                        <div className="mx-auto h-28 w-28 overflow-hidden rounded-lg bg-gradient-to-br from-blue-300 to-orange-300 text-sm font-semibold text-gray-400 sm:mx-0 sm:h-24 sm:w-24 flex-shrink-0 flex items-center justify-center">
                           {student.imageUrl ? (
                             <img
                               src={student.imageUrl}
                               alt={student.studentName}
-                              className="w-full h-full object-cover"
+                              className="h-full w-full object-cover object-top"
                             />
                           ) : (
                             "Photo"
@@ -130,41 +127,23 @@ export default function PlacementReportSection() {
                         </div>
 
                         {/* Content */}
-                        <div className="flex-grow">
-                          <h4 className="text-lg sm:text-xl font-bold text-gray-900 mb-1">
+                        <div className="min-w-0 flex-grow text-center sm:text-left">
+                          <h4 className="mb-1 text-lg font-bold text-gray-900 sm:text-xl">
                             {student.studentName}
                           </h4>
                           
-                          <p className="text-sm font-semibold text-orange-600 mb-3">
+                          <p className="mb-3 text-sm font-semibold text-orange-600">
                             DDCET Rank: {student.rank} | Marks: {student.marks != null ? student.marks : "N/A"}
                           </p>
 
                           <div className="space-y-1.5 sm:space-y-2 mb-3 sm:mb-4">
-                            <div className="flex justify-between text-xs sm:text-sm">
-                              <span className="text-gray-600 shrink-0 mr-2">Branch:</span>
-                              <span className="font-semibold text-gray-900 text-right">
-                                {student.branchName || student.course || "N/A"}
-                              </span>
-                            </div>
-                            <div className="flex justify-between text-xs sm:text-sm">
+                            <div className="flex flex-col gap-0.5 text-xs sm:flex-row sm:justify-between sm:text-sm">
                               <span className="text-gray-600 shrink-0 mr-2">College:</span>
-                              <span className="font-semibold text-blue-600 text-right">
+                              <span className="font-semibold text-blue-600 break-words sm:text-right">
                                 {student.collegeName || "N/A"}
                               </span>
                             </div>
-                            <div className="flex justify-between text-xs sm:text-sm">
-                              <span className="text-gray-600 shrink-0 mr-2">Admission:</span>
-                              <span className="font-semibold text-gray-900 text-right">
-                                {student.admissionYear}
-                              </span>
-                            </div>
                           </div>
-
-                          {student.testimonial && (
-                            <p className="text-xs sm:text-sm text-gray-600 italic border-l-2 border-orange-400 pl-3">
-                              "{student.testimonial}"
-                            </p>
-                          )}
                         </div>
                       </div>
                     </GlassCard>

@@ -16,15 +16,30 @@ export async function GET(
       );
     }
 
-    const students = await prisma.studentData.findMany({
+    const students = await prisma.student_data.findMany({
       where: {
         featured: true,
-        admissionYear: yearNum,
+        admission_year: yearNum,
       },
-      orderBy: { displayOrder: "asc" },
     });
 
-    return NextResponse.json(students);
+    return NextResponse.json(
+  students.map((student) => ({
+    id: Number(student.id),
+    studentName: student.student_name,
+    imageUrl: student.image_url,
+    course: student.course,
+    rank: student.rank,
+    marks: student.marks,
+    collegeName: student.college_name,
+    branchName: student.branch_name,
+    admissionYear: student.admission_year,
+    achievementYear: student.achievement_year,
+    testimonial: student.testimonial,
+    featured: student.featured,
+    displayOrder: student.display_order,
+  }))
+);
   } catch (error) {
     console.error("GET /api/students/year/[year] error:", error);
     return NextResponse.json(

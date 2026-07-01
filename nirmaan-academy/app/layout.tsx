@@ -5,8 +5,8 @@ import SideBranding from "@/components/SideBranding";
 import CustomCursor from "@/components/ui/CustomCursor";
 import InstantCallback from "@/components/InstantCallback";
 import SecurityEnforcer from "@/components/SecurityEnforcer";
-import Preloader from "@/components/Preloader";
 import AppwriteInitializer from "@/components/AppwriteInitializer";
+import AppShell from "@/components/AppShell";
 
 const sora = Sora({
   variable: "--font-sora",
@@ -52,13 +52,14 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-full flex flex-col bg-white">
-        <Preloader />
-        <AppwriteInitializer />
-        <SecurityEnforcer />
-        <CustomCursor />
-        <SideBranding />
-        <InstantCallback />
-        {children}
+        <AppShell>
+          <AppwriteInitializer />
+          <SecurityEnforcer />
+          <CustomCursor />
+          <SideBranding />
+          <InstantCallback />
+          {children}
+        </AppShell>
       </body>
     </html>
   );

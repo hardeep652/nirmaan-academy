@@ -1,13 +1,14 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import BrandLogo from "./BrandLogo";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [hasScrolled, setHasScrolled] = useState(false);
+  const [showLogo, setShowLogo] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -15,6 +16,21 @@ export default function Navbar() {
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  useEffect(() => {
+    setShowLogo(document.body.dataset.preloader !== "active");
+
+    const observer = new MutationObserver(() => {
+      setShowLogo(document.body.dataset.preloader !== "active");
+    });
+
+    observer.observe(document.body, {
+      attributes: true,
+      attributeFilter: ["data-preloader"],
+    });
+
+    return () => observer.disconnect();
   }, []);
 
   const navLinks = [
@@ -28,9 +44,7 @@ export default function Navbar() {
 
   return (
     <motion.nav
-      initial={{ y: -80, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.6, delay: 0.1 }}
+      initial={false}
       className={`fixed top-0 w-full z-50 transition-all duration-300 ${
         hasScrolled
           ? "backdrop-blur-md shadow-md"
@@ -46,17 +60,15 @@ export default function Navbar() {
         <div className="flex justify-between items-center h-16 sm:h-20">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2 sm:gap-3 ml-2 sm:ml-4 group">
-            <div className="flex items-center justify-center w-12 h-12 sm:w-16 sm:h-16 lg:w-20 lg:h-20 rounded-xl transition-all duration-300 group-hover:shadow-[0_0_20px_5px_rgba(255,255,255,0.3),0_0_40px_10px_rgba(37,99,235,0.3),0_0_60px_15px_rgba(234,88,12,0.25)]">
-              <Image
-                src="https://res.cloudinary.com/dkzmths4e/image/upload/v1781945973/lsqjzszlc5gwtbg7z4qg.png"
-                alt="Nirmaan Academy Logo"
-                width={80}
-                height={80}
-                className="object-contain brightness-110 drop-shadow-[0_0_8px_rgba(255,255,255,0.4)]"
-                style={{ width: "auto", height: "auto" }}
-                unoptimized
+            {showLogo ? (
+              <BrandLogo
+                sizeClassName="w-12 h-12 sm:w-16 sm:h-16 lg:w-20 lg:h-20"
+                className="rounded-xl transition-all duration-300 group-hover:shadow-[0_0_20px_5px_rgba(255,255,255,0.3),0_0_40px_10px_rgba(37,99,235,0.3),0_0_60px_15px_rgba(234,88,12,0.25)]"
+                imageClassName="brightness-110 drop-shadow-[0_0_8px_rgba(255,255,255,0.4)]"
               />
-            </div>
+            ) : (
+              <div className="w-12 h-12 sm:w-16 sm:h-16 lg:w-20 lg:h-20" />
+            )}
           </Link>
 
           {/* Desktop Nav Links */}

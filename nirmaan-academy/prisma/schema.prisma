@@ -7,18 +7,20 @@ datasource db {
   provider = "postgresql"
 }
 
-model StudentData {
-  id              Int     @id @default(autoincrement())
-  studentName     String
-  imageUrl        String
-  course          String
-  rank            Int
-  marks           Float?
-  collegeName     String?
-  branchName      String?
-  admissionYear   Int
-  achievementYear Int?
-  testimonial     String?
-  featured        Boolean
-  displayOrder    Int
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model student_data {
+  id               BigInt  @id @default(autoincrement())
+  achievement_year Int?
+  admission_year   Int?
+  branch_name      String? @db.VarChar(150)
+  college_name     String? @db.VarChar(150)
+  course           String  @db.VarChar(50)
+  display_order    Int?
+  featured         Boolean
+  image_url        String  @db.VarChar(255)
+  percentage       Float?
+  rank             Int?
+  student_name     String  @db.VarChar(100)
+  testimonial      String? @db.VarChar(2000)
+  marks            Float?
 }

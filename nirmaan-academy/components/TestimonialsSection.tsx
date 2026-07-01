@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import SectionBadge from "./ui/SectionBadge";
 import PremiumCard from "./ui/PremiumCard";
@@ -18,17 +18,50 @@ interface GoogleReview {
 export default function TestimonialsSection() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [imgErrors, setImgErrors] = useState<Set<number>>(new Set());
+  const touchStartX = useRef(0);
 
   const items: GoogleReview[] = reviewsData.reviews.slice(0, 7);
+  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
-  const next = () => {
+  const next = useCallback(() => {
     setCurrentIndex((prev) => (prev + 1) % items.length);
-  };
+  }, [items.length]);
 
-  const prev = () => {
+  const prev = useCallback(() => {
     setCurrentIndex((prev) =>
       prev === 0 ? items.length - 1 : prev - 1
     );
+  }, [items.length]);
+
+  const startAutoPlay = useCallback(() => {
+    if (intervalRef.current) clearInterval(intervalRef.current);
+    intervalRef.current = setInterval(() => next(), 3000);
+  }, [next]);
+
+  const stopAutoPlay = useCallback(() => {
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+      intervalRef.current = null;
+    }
+  }, []);
+
+  useEffect(() => {
+    startAutoPlay();
+    return () => stopAutoPlay();
+  }, [startAutoPlay, stopAutoPlay]);
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    stopAutoPlay();
+    touchStartX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    const diff = touchStartX.current - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 50) {
+      if (diff > 0) next();
+      else prev();
+    }
+    startAutoPlay();
   };
 
   const renderStars = (rating: number) => {
@@ -50,7 +83,7 @@ export default function TestimonialsSection() {
 
   return (
     <section id="testimonials" className="section-space bg-blue-50">
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -70,15 +103,20 @@ export default function TestimonialsSection() {
         </motion.div>
 
         {/* Carousel */}
-        <div className="relative max-w-3xl mx-auto">
+        <div
+          className="relative max-w-3xl mx-auto"
+          style={{ touchAction: "pan-y" }}
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleTouchEnd}
+        >
           {items.length > 0 && (
             <>
               <AnimatePresence mode="wait">
                 <motion.div
                   key={currentIndex}
-                  initial={{ opacity: 0, x: 100 }}
+                  initial={{ opacity: 0, x: 60 }}
                   animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: -100 }}
+                  exit={{ opacity: 0, x: -60 }}
                   transition={{ duration: 0.5 }}
                 >
                   <PremiumCard className="text-center p-6 sm:p-8 lg:p-12">
@@ -129,30 +167,12 @@ export default function TestimonialsSection() {
                 </motion.div>
               </AnimatePresence>
 
-              {/* Navigation Buttons */}
-              <div className="flex justify-center gap-4 mt-6 sm:mt-8">
-                <button
-                  onClick={prev}
-                  className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white border-2 border-blue-900 text-blue-900 font-bold hover:bg-blue-900 hover:text-white transition-colors flex items-center justify-center text-sm sm:text-base"
-                  aria-label="Previous review"
-                >
-                  ←
-                </button>
-                <button
-                  onClick={next}
-                  className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white border-2 border-blue-900 text-blue-900 font-bold hover:bg-blue-900 hover:text-white transition-colors flex items-center justify-center text-sm sm:text-base"
-                  aria-label="Next review"
-                >
-                  →
-                </button>
-              </div>
-
               {/* Indicators */}
               <div className="flex justify-center gap-2 mt-4 sm:mt-6">
                 {items.map((_, idx) => (
                   <button
                     key={idx}
-                    onClick={() => setCurrentIndex(idx)}
+                    onClick={() => { stopAutoPlay(); setCurrentIndex(idx); startAutoPlay(); }}
                     className={`w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full transition-colors ${
                       idx === currentIndex ? "bg-orange-500" : "bg-gray-300"
                     }`}

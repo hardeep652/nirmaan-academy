@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { Query } from "appwrite";
 import { storage } from "@/lib/appwrite";
 
 const ENDPOINT = "https://nyc.cloud.appwrite.io/v1";
@@ -27,9 +28,21 @@ export async function GET() {
       );
     }
 
-    const response = await storage.listFiles(bucketId);
+    const allFiles: any[] = [];
+    let offset = 0;
+    const limit = 100;
 
-    const files = response.files.map((file) => ({
+    while (true) {
+      const response = await storage.listFiles(bucketId, [
+        Query.limit(limit),
+        Query.offset(offset),
+      ]);
+      allFiles.push(...response.files);
+      if (response.files.length < limit) break;
+      offset += limit;
+    }
+
+    const files = allFiles.map((file) => ({
       id: file.$id,
       title: formatTitle(file.name),
       fileName: file.name,

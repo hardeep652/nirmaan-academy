@@ -28,9 +28,12 @@ export default function NirmaanPreloader() {
     const video = videoRef.current;
     if (!video) return;
     const play = () => video.play().catch(() => {});
-    play();
+    video.addEventListener("canplay", play, { once: true });
     video.addEventListener("loadedmetadata", play, { once: true });
-    return () => video.removeEventListener("loadedmetadata", play);
+    return () => {
+      video.removeEventListener("canplay", play);
+      video.removeEventListener("loadedmetadata", play);
+    };
   }, []);
 
   return (
@@ -61,17 +64,13 @@ export default function NirmaanPreloader() {
                 muted
                 playsInline
                 preload="auto"
+                src="https://res.cloudinary.com/dkzmths4e/video/upload/q_auto:good/v1782756214/newa29i66zesnxeo69pn.mp4"
                 initial={{ opacity: 0, y: 20, scale: 0.96 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 transition={{ duration: 0.7, ease: "easeOut", delay: 0.15 }}
                 className="w-full"
                 onEnded={() => setLoading(false)}
-              >
-                <source
-                  src="https://res.cloudinary.com/dkzmths4e/video/upload/q_auto:good,f_auto,vc_auto,w_384/v1782756214/newa29i66zesnxeo69pn.mp4"
-                  type="video/mp4"
-                />
-              </motion.video>
+              />
             </motion.div>
           </div>
         </motion.div>

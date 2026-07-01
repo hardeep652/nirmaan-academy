@@ -60,15 +60,11 @@ export default function Navbar() {
         <div className="flex justify-between items-center h-16 sm:h-20">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2 sm:gap-3 ml-2 sm:ml-4 group">
-            {showLogo ? (
-              <BrandLogo
-                sizeClassName="w-12 h-12 sm:w-16 sm:h-16 lg:w-20 lg:h-20"
-                className="rounded-xl transition-all duration-300 group-hover:shadow-[0_0_20px_5px_rgba(255,255,255,0.3),0_0_40px_10px_rgba(37,99,235,0.3),0_0_60px_15px_rgba(234,88,12,0.25)]"
-                imageClassName="brightness-110 drop-shadow-[0_0_8px_rgba(255,255,255,0.4)]"
-              />
-            ) : (
-              <div className="w-12 h-12 sm:w-16 sm:h-16 lg:w-20 lg:h-20" />
-            )}
+            <BrandLogo
+              sizeClassName="w-12 h-12 sm:w-16 sm:h-16 lg:w-20 lg:h-20"
+              className={`rounded-xl ${showLogo ? "" : "invisible"} group-hover:shadow-[0_0_20px_5px_rgba(255,255,255,0.3),0_0_40px_10px_rgba(37,99,235,0.3),0_0_60px_15px_rgba(234,88,12,0.25)]`}
+              imageClassName="brightness-110 drop-shadow-[0_0_8px_rgba(255,255,255,0.4)]"
+            />
           </Link>
 
           {/* Desktop Nav Links */}

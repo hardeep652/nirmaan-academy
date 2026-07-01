@@ -5,22 +5,25 @@ import { motion, AnimatePresence } from "framer-motion";
 
 const VIDEO_SRC =
   "https://res.cloudinary.com/dkzmths4e/video/upload/q_auto:good/v1782756214/newa29i66zesnxeo69pn.mp4";
+const LOGO_SRC =
+  "https://res.cloudinary.com/dkzmths4e/image/upload/v1781945973/lsqjzszlc5gwtbg7z4qg.png";
 
-const MIN_DISPLAY_MS = 2000;
+const MIN_DISPLAY_MS = 2500;
 const FALLBACK_TIMEOUT_MS = 5000;
 
 export default function NirmaanPreloader() {
   const [mounted, setMounted] = useState(true);
+  const [dismissing, setDismissing] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
   const cancelledRef = useRef(false);
   const startRef = useRef(Date.now());
 
   useLayoutEffect(() => {
     document.body.dataset.preloader = "active";
+    document.body.style.overflow = "hidden";
     return () => {
-      if (document.body.dataset.preloader === "active") {
-        delete document.body.dataset.preloader;
-      }
+      delete document.body.dataset.preloader;
+      document.body.style.overflow = "";
     };
   }, []);
 
@@ -31,8 +34,15 @@ export default function NirmaanPreloader() {
     const dismiss = () => {
       if (cancelledRef.current) return;
       cancelledRef.current = true;
-      document.body.dataset.preloader = "done";
-      setMounted(false);
+      setDismissing(true);
+
+      setTimeout(() => {
+        document.body.dataset.preloader = "done";
+      }, 250);
+
+      setTimeout(() => {
+        setMounted(false);
+      }, 700);
     };
 
     const onReady = () => {
@@ -52,7 +62,6 @@ export default function NirmaanPreloader() {
     }
 
     video.load();
-
     return () => {
       cancelledRef.current = true;
     };
@@ -62,8 +71,11 @@ export default function NirmaanPreloader() {
     const timer = setTimeout(() => {
       if (cancelledRef.current) return;
       cancelledRef.current = true;
-      document.body.dataset.preloader = "done";
-      setMounted(false);
+      setDismissing(true);
+      setTimeout(() => {
+        document.body.dataset.preloader = "done";
+      }, 250);
+      setTimeout(() => setMounted(false), 700);
     }, FALLBACK_TIMEOUT_MS);
     return () => clearTimeout(timer);
   }, []);
@@ -75,32 +87,49 @@ export default function NirmaanPreloader() {
           key="preloader"
           exit={{ opacity: 0 }}
           transition={{ duration: 0.8, ease: "easeInOut" }}
-          className="fixed inset-0 z-[9999] flex items-center justify-center"
-          style={{
-            backgroundImage:
-              "url('https://res.cloudinary.com/dbdyarkdq/image/upload/v1782896787/bg_nirmaan_crcsd9.png')",
-            backgroundPosition: "center",
-            backgroundSize: "cover",
-            backgroundRepeat: "no-repeat",
-          }}
+          className="fixed inset-0 z-[9999]"
         >
-          <div className="relative w-full max-w-sm px-6">
+          {/* Background - fades independently */}
+          <motion.div
+            className="absolute inset-0"
+            style={{
+              backgroundImage:
+                "url('https://res.cloudinary.com/dbdyarkdq/image/upload/v1782896787/bg_nirmaan_crcsd9.png')",
+              backgroundPosition: "center",
+              backgroundSize: "cover",
+              backgroundRepeat: "no-repeat",
+            }}
+            animate={{ opacity: dismissing ? 0 : 1 }}
+            transition={{ duration: 0.7, ease: "easeInOut", delay: 0.3 }}
+          />
+
+          {/* Logo */}
+          <div className="relative z-10 flex items-center justify-center h-full">
             <motion.div
               layoutId="nirmaan-brand-logo"
-              transition={{ type: "spring", stiffness: 180, damping: 20 }}
-              className="overflow-hidden rounded-2xl"
+              transition={{ type: "spring", stiffness: 200, damping: 24 }}
+              className="overflow-hidden rounded-2xl max-w-sm w-full mx-6"
             >
-              <video
-                ref={videoRef}
-                src={VIDEO_SRC}
-                autoPlay
-                muted
-                loop
-                playsInline
-                preload="auto"
-                disableRemotePlayback
-                className="w-full"
-              />
+              <div className="relative">
+                <video
+                  ref={videoRef}
+                  src={VIDEO_SRC}
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  preload="auto"
+                  disableRemotePlayback
+                  className="w-full"
+                  style={{ opacity: dismissing ? 0 : 1, transition: "opacity 0.25s ease" }}
+                />
+                <img
+                  src={LOGO_SRC}
+                  alt=""
+                  className="absolute inset-0 w-full h-full object-contain"
+                  style={{ opacity: dismissing ? 1 : 0, transition: "opacity 0.25s ease" }}
+                />
+              </div>
             </motion.div>
           </div>
         </motion.div>

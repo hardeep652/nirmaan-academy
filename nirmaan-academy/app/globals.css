@@ -40,6 +40,10 @@ body {
   background-color: var(--white);
 }
 
+body[data-preloader="active"] {
+  overflow: hidden;
+}
+
 @media (hover: hover) and (pointer: fine) {
   * {
     cursor: none !important;

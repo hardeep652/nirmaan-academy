@@ -1,43 +1,82 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
-export default function NirmaanPreloader() {
-  const [loading, setLoading] = useState(true);
+const VIDEO_SRC =
+  "https://res.cloudinary.com/dkzmths4e/video/upload/q_auto:good/v1782756214/newa29i66zesnxeo69pn.mp4";
 
-  useEffect(() => {
+const MIN_DISPLAY_MS = 2000;
+const FALLBACK_TIMEOUT_MS = 5000;
+
+export default function NirmaanPreloader() {
+  const [show, setShow] = useState(true);
+  const [alive, setAlive] = useState(true);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const cancelledRef = useRef(false);
+  const startRef = useRef(Date.now());
+
+  useLayoutEffect(() => {
     document.body.dataset.preloader = "active";
-    const timer = setTimeout(() => setLoading(false), 5000);
     return () => {
-      clearTimeout(timer);
       delete document.body.dataset.preloader;
     };
   }, []);
 
   useEffect(() => {
-    if (loading) {
-      document.body.dataset.preloader = "active";
-      return;
+    const video = videoRef.current;
+    if (!video) return;
+
+    const dismiss = () => {
+      if (cancelledRef.current) return;
+      setShow(false);
+      document.body.dataset.preloader = "done";
+      setTimeout(() => {
+        if (!cancelledRef.current) setAlive(false);
+      }, 800);
+    };
+
+    const onReady = () => {
+      if (cancelledRef.current) return;
+      video.play().catch(() => {});
+      const elapsed = Date.now() - startRef.current;
+      const remaining = Math.max(0, MIN_DISPLAY_MS - elapsed);
+      setTimeout(dismiss, remaining);
+    };
+
+    if (video.readyState >= HTMLMediaElement.HAVE_FUTURE_DATA) {
+      onReady();
+    } else {
+      video.addEventListener("canplay", onReady, { once: true });
+      video.addEventListener("canplaythrough", onReady, { once: true });
+      video.addEventListener("loadedmetadata", onReady, { once: true });
     }
-    document.body.dataset.preloader = "done";
-  }, [loading]);
+
+    video.load();
+
+    return () => {
+      cancelledRef.current = true;
+    };
+  }, []);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (cancelledRef.current) return;
+      setShow(false);
+      document.body.dataset.preloader = "done";
+      setTimeout(() => setAlive(false), 800);
+    }, FALLBACK_TIMEOUT_MS);
+    return () => clearTimeout(timer);
+  }, []);
 
   return (
     <AnimatePresence>
-      {loading && (
+      {alive && (
         <motion.div
-          initial={{ opacity: 1 }}
+          key="preloader"
           exit={{ opacity: 0 }}
           transition={{ duration: 0.8, ease: "easeInOut" }}
-          className="fixed inset-0 z-[9999] flex items-center justify-center"
-          style={{
-            backgroundImage:
-              "url('https://res.cloudinary.com/dbdyarkdq/image/upload/v1782896787/bg_nirmaan_crcsd9.png')",
-            backgroundPosition: "center",
-            backgroundSize: "cover",
-            backgroundRepeat: "no-repeat",
-          }}
+          className="fixed inset-0 z-[9999] flex items-center justify-center bg-white"
         >
           <div className="relative w-full max-w-sm px-6">
             <motion.div
@@ -45,18 +84,15 @@ export default function NirmaanPreloader() {
               transition={{ type: "spring", stiffness: 180, damping: 20 }}
               className="overflow-hidden rounded-2xl"
             >
-              <motion.video
-                src="https://res.cloudinary.com/dkzmths4e/video/upload/q_auto:good/v1782756214/newa29i66zesnxeo69pn.mp4"
+              <video
+                ref={videoRef}
+                src={VIDEO_SRC}
                 autoPlay
                 muted
                 loop
                 playsInline
                 preload="auto"
                 disableRemotePlayback
-                poster="https://res.cloudinary.com/dkzmths4e/video/upload/so_0/v1782756214/newa29i66zesnxeo69pn.jpg"
-                initial={{ opacity: 0, y: 20, scale: 0.96 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                transition={{ duration: 0.7, ease: "easeOut", delay: 0.15 }}
                 className="w-full"
               />
             </motion.div>

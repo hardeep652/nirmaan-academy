@@ -7,8 +7,18 @@ const CustomCursor = () => {
   const [isHovering, setIsHovering] = useState(false);
   const [isInput, setIsInput] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
+  const [isDesktop, setIsDesktop] = useState(false);
 
   useEffect(() => {
+    const mq = window.matchMedia("(pointer: fine)");
+    setIsDesktop(mq.matches);
+    const handler = (e: MediaQueryListEvent) => setIsDesktop(e.matches);
+    mq.addEventListener("change", handler);
+    return () => mq.removeEventListener("change", handler);
+  }, []);
+
+  useEffect(() => {
+    if (!isDesktop) return;
     const onMouseMove = (e: MouseEvent) => {
       setPosition({ x: e.clientX, y: e.clientY });
       if (!isVisible) setIsVisible(true);
@@ -54,9 +64,9 @@ const CustomCursor = () => {
       document.removeEventListener("mouseleave", onMouseLeave);
       document.removeEventListener("mouseenter", onMouseEnter);
     };
-  }, [isVisible]);
+  }, [isDesktop, isVisible]);
 
-  if (!isVisible) return null;
+  if (!isDesktop || !isVisible) return null;
 
   return (
     <>

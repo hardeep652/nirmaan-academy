@@ -1,15 +1,13 @@
 import { NextResponse } from "next/server";
-import { prisma } from "@/lib/prisma";
+import { query } from "@/lib/prisma";
 import { createStudentSchema } from "@/lib/validations/student";
 
 export async function GET() {
   try {
-    const students = await prisma.student_data.findMany({
-      orderBy: {
-  display_order: "asc",
-},
-    });
-    return NextResponse.json(students);
+    const result = await query(
+      'SELECT * FROM student_data ORDER BY display_order ASC'
+    );
+    return NextResponse.json(result.rows);
   } catch (error) {
     console.error("GET /api/students error:", error);
     return NextResponse.json(
@@ -31,24 +29,14 @@ export async function POST(request: Request) {
       );
     }
 
-   const student = await prisma.student_data.create({
-  data: {
-    student_name: parsed.data.studentName,
-    image_url: parsed.data.imageUrl,
-    course: parsed.data.course,
-    rank: parsed.data.rank,
-    marks: parsed.data.marks,
-    college_name: parsed.data.collegeName,
-    branch_name: parsed.data.branchName,
-    admission_year: parsed.data.admissionYear,
-    achievement_year: parsed.data.achievementYear,
-    testimonial: parsed.data.testimonial,
-    featured: parsed.data.featured,
-    display_order: parsed.data.displayOrder,
-  },
-});
+    const d = parsed.data;
+    const result = await query(
+      `INSERT INTO student_data (student_name, image_url, course, rank, marks, college_name, branch_name, admission_year, achievement_year, testimonial, featured, display_order)
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) RETURNING *`,
+      [d.studentName, d.imageUrl, d.course, d.rank, d.marks, d.collegeName, d.branchName, d.admissionYear, d.achievementYear, d.testimonial, d.featured, d.displayOrder]
+    );
 
-    return NextResponse.json(student, { status: 201 });
+    return NextResponse.json(result.rows[0], { status: 201 });
   } catch (error) {
     console.error("POST /api/students error:", error);
     return NextResponse.json(

@@ -131,6 +131,16 @@ h6 {
   display: none;
 }
 
+@media (max-width: 767px) {
+  .hide-scrollbar-mobile::-webkit-scrollbar {
+    display: none;
+  }
+  .hide-scrollbar-mobile {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
+
 /* Cursor Blink Animation Class */
 .cursor-blink {
   animation: blink 1s infinite;

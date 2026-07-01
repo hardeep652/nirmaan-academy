@@ -1,14 +1,13 @@
 import { NextResponse } from "next/server";
-import { prisma } from "@/lib/prisma";
+import { query } from "@/lib/prisma";
 
 export async function GET() {
   try {
-    const students = await prisma.student_data.findMany({
-      where: { featured: true },
-      orderBy: { display_order: "asc" },
-    });
+    const result = await query(
+      'SELECT image_url, student_name, course, marks, display_order FROM student_data WHERE featured = true ORDER BY display_order ASC'
+    );
 
-    const topRankers = students.map((s) => ({
+    const topRankers = result.rows.map((s: any) => ({
       imageUrl: s.image_url,
       studentName: s.student_name,
       course: s.course,

@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { prisma } from "@/lib/prisma";
+import { query } from "@/lib/prisma";
 
 export async function GET(
   _request: Request,
@@ -16,15 +16,13 @@ export async function GET(
       );
     }
 
-    const students = await prisma.student_data.findMany({
-      where: {
-        featured: true,
-        admission_year: yearNum,
-      },
-    });
+    const result = await query(
+      'SELECT * FROM student_data WHERE featured = true AND admission_year = $1 ORDER BY display_order ASC',
+      [yearNum]
+    );
 
     return NextResponse.json(
-  students.map((student) => ({
+  result.rows.map((student: any) => ({
     id: Number(student.id),
     studentName: student.student_name,
     imageUrl: student.image_url,

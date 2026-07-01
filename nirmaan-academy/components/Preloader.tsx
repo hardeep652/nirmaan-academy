@@ -36,6 +36,11 @@ export default function NirmaanPreloader() {
     };
   }, []);
 
+  const handleInteraction = () => {
+    const video = videoRef.current;
+    if (video && video.paused) video.play().catch(() => {});
+  };
+
   return (
     <AnimatePresence>
       {loading && (
@@ -51,6 +56,8 @@ export default function NirmaanPreloader() {
             backgroundSize: "cover",
             backgroundRepeat: "no-repeat",
           }}
+          onClick={handleInteraction}
+          onTouchStart={handleInteraction}
         >
           <div className="relative w-full max-w-sm px-6">
             <motion.div

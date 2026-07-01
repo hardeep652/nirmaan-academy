@@ -85,7 +85,10 @@ export default function NirmaanPreloader() {
           transition={{ duration: 0.8, ease: "easeInOut" }}
           className="fixed inset-0 z-[9999]"
         >
-          {/* Background - fades independently */}
+          {/* Solid backdrop - hides content until preloader fully exits */}
+          <div className="absolute inset-0 bg-white" />
+
+          {/* Pattern overlay - fades to reveal solid bg */}
           <motion.div
             className="absolute inset-0"
             style={{

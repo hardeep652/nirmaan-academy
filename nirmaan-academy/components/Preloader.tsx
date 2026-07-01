@@ -56,6 +56,7 @@ export default function NirmaanPreloader() {
                 transition={{ duration: 0.7, ease: "easeOut", delay: 0.15 }}
                 className="w-full"
                 onEnded={() => setLoading(false)}
+                onLoadedMetadata={(e) => e.currentTarget.play().catch(() => {})}
               >
                 <source
                   src="https://res.cloudinary.com/dkzmths4e/video/upload/q_auto:good,f_auto,vc_auto,w_384/v1782756214/newa29i66zesnxeo69pn.mp4"

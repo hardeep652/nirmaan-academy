@@ -1,11 +1,10 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 export default function NirmaanPreloader() {
   const [loading, setLoading] = useState(true);
-  const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
     document.body.dataset.preloader = "active";
@@ -24,23 +23,6 @@ export default function NirmaanPreloader() {
     document.body.dataset.preloader = "done";
   }, [loading]);
 
-  useEffect(() => {
-    const video = videoRef.current;
-    if (!video) return;
-    const play = () => video.play().catch(() => {});
-    video.addEventListener("canplay", play, { once: true });
-    video.addEventListener("loadedmetadata", play, { once: true });
-    return () => {
-      video.removeEventListener("canplay", play);
-      video.removeEventListener("loadedmetadata", play);
-    };
-  }, []);
-
-  const handleInteraction = () => {
-    const video = videoRef.current;
-    if (video && video.paused) video.play().catch(() => {});
-  };
-
   return (
     <AnimatePresence>
       {loading && (
@@ -56,8 +38,6 @@ export default function NirmaanPreloader() {
             backgroundSize: "cover",
             backgroundRepeat: "no-repeat",
           }}
-          onClick={handleInteraction}
-          onTouchStart={handleInteraction}
         >
           <div className="relative w-full max-w-sm px-6">
             <motion.div
@@ -65,18 +45,13 @@ export default function NirmaanPreloader() {
               transition={{ type: "spring", stiffness: 180, damping: 20 }}
               className="overflow-hidden rounded-2xl"
             >
-              <motion.video
-                ref={videoRef}
-                autoPlay
-                muted
-                playsInline
-                preload="auto"
-                src="https://res.cloudinary.com/dkzmths4e/video/upload/q_auto:good/v1782756214/newa29i66zesnxeo69pn.mp4"
+              <motion.img
+                src="https://res.cloudinary.com/dkzmths4e/image/upload/fl_animated,q_auto:good/v1782756214/newa29i66zesnxeo69pn.mp4"
+                alt="Nirmaan Academy"
                 initial={{ opacity: 0, y: 20, scale: 0.96 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 transition={{ duration: 0.7, ease: "easeOut", delay: 0.15 }}
                 className="w-full"
-                onEnded={() => setLoading(false)}
               />
             </motion.div>
           </div>

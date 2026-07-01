@@ -160,7 +160,7 @@ export default function ResultsSection() {
               </button>
               <div
                 ref={scrollRef}
-                className="flex gap-4 sm:gap-6 overflow-x-auto hide-scrollbar-mobile py-4 -mx-4 sm:-mx-0 px-4 sm:px-0"
+                className="flex gap-4 sm:gap-6 overflow-x-auto scrollbar-hidden py-4 -mx-4 sm:-mx-0 px-4 sm:px-0"
                 style={{ touchAction: "pan-y", overflowY: "clip" }}
                 onTouchStart={handleTouchStart}
                 onTouchEnd={handleTouchEnd}

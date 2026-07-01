@@ -61,22 +61,32 @@ const categories: Category[] = [
     smallVideo: true,
     videos: [
       undefined,
-      "https://res.cloudinary.com/dkzmths4e/video/upload/q_auto:good/v1781894141/bmpswruovuydammjyk6n.mp4",
       undefined,
+      undefined,
+      undefined,
+      "https://res.cloudinary.com/dkzmths4e/video/upload/q_auto:good/v1781894141/bmpswruovuydammjyk6n.mp4",
       "https://res.cloudinary.com/dkzmths4e/video/upload/v1782539167/mqxrgzhimj7irf6ra13g.mp4",
     ],
     images: [
       "https://res.cloudinary.com/dkzmths4e/image/upload/v1781894642/r5naretrtxpriiqf5yzw.png",
-      undefined,
       "https://res.cloudinary.com/dkzmths4e/image/upload/v1781894642/fnwzroioitxjnnkiray1.png",
+      "https://res.cloudinary.com/dkzmths4e/image/upload/v1782884484/caimlacnonxvjnqlefej.png",
+      "https://res.cloudinary.com/dkzmths4e/image/upload/v1782884503/eb8dygthg6xsxnha9q9d.png",
     ],
   },
 ];
 
 const celebration2025Images = [
+  "https://res.cloudinary.com/dkzmths4e/image/upload/v1782883441/lgkmtzwhdq4okbau1tlf.jpg",
+  "https://res.cloudinary.com/dkzmths4e/image/upload/v1782883440/o4n7lbpub6fpgxavy3nh.jpg",
+  "https://res.cloudinary.com/dkzmths4e/image/upload/v1782883441/xtwd7hm2n6mra3f26dju.jpg",
   "https://res.cloudinary.com/dkzmths4e/image/upload/v1782745772/fiv38yrujifyovlkjcrg.jpg",
   "https://res.cloudinary.com/dkzmths4e/image/upload/v1782745771/trambns1celtquu7p0ou.jpg",
   "https://res.cloudinary.com/dkzmths4e/image/upload/v1782745772/n1iaksqeweynacrk69hi.jpg",
+];
+
+const celebration2026Videos = [
+  "https://res.cloudinary.com/dkzmths4e/video/upload/v1782882849/hwzlrpdewlrxod3zx5g9.mp4",
 ];
 
 export default function GallerySection() {
@@ -122,30 +132,30 @@ export default function GallerySection() {
                     <h4 className="text-lg sm:text-xl font-bold text-gray-800 mb-2 sm:mb-3">2025 Celebration</h4>
                   )}
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5 mb-4 sm:mb-5">
-                  {category.videos.map((videoUrl, vidIdx) =>
-                    videoUrl ? (
-                      <motion.div
-                        key={`${catIdx}-vid-${vidIdx}`}
-                        initial={{ opacity: 0, scale: 0.9 }}
-                        whileInView={{ opacity: 1, scale: 1 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: vidIdx * 0.08 }}
-                        onClick={() => setSelectedImage(`${catIdx}-${vidIdx}`)}
-                        className="relative overflow-hidden rounded-2xl shadow-lg cursor-pointer group"
-                      >
-                        <div className="w-full h-full aspect-video">
-                          <video
-                            src={videoUrl}
-                            autoPlay
-                            loop
-                            muted
-                            playsInline
-                            className="w-full h-full object-cover"
-                          />
-                        </div>
-                      </motion.div>
-                    ) : null
-                  )}
+                    {category.videos.map((videoUrl, vidIdx) =>
+                      videoUrl ? (
+                        <motion.div
+                          key={`${catIdx}-vid-${vidIdx}`}
+                          initial={{ opacity: 0, scale: 0.9 }}
+                          whileInView={{ opacity: 1, scale: 1 }}
+                          viewport={{ once: true }}
+                          transition={{ delay: vidIdx * 0.08 }}
+                          onClick={() => setSelectedImage(`${catIdx}-${vidIdx}`)}
+                          className="relative overflow-hidden rounded-2xl shadow-lg cursor-pointer group"
+                        >
+                          <div className="w-full h-full aspect-video">
+                            <video
+                              src={videoUrl}
+                              autoPlay
+                              loop
+                              muted
+                              playsInline
+                              className="w-full h-full object-cover"
+                            />
+                          </div>
+                        </motion.div>
+                      ) : null
+                    )}
                   </div>
                   {category.label === "Result Celebration" && (
                     <div className="grid grid-cols-2 md:grid-cols-3 gap-4 sm:gap-5 mb-4 sm:mb-5">
@@ -171,84 +181,139 @@ export default function GallerySection() {
                 </>
               )}
 
-              {category.label === "Result Celebration" && (
-                <h4 className="text-lg sm:text-xl font-bold text-gray-800 mb-2 sm:mb-3">2026 Celebration</h4>
+              {category.label === "Result Celebration" && celebration2026Videos.length > 0 && (
+                <>
+                  <h4 className="text-lg sm:text-xl font-bold text-gray-800 mb-2 sm:mb-3">2026 Celebration</h4>
+                  <div className="flex flex-col md:flex-row gap-5 items-stretch mb-4 sm:mb-5">
+                    {/* Left: Video 35% */}
+                    <div className="w-full md:w-[30%] flex">
+                      <motion.div
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        viewport={{ once: true }}
+                        onClick={() => setSelectedImage(`2026-vid-0`)}
+                        className="relative overflow-hidden rounded-[24px] shadow-lg cursor-pointer group w-full"
+                      >
+                        <video
+                          src={celebration2026Videos[0]}
+                          autoPlay
+                          loop
+                          muted
+                          playsInline
+                          className="w-full h-full object-cover rounded-[24px]"
+                        />
+                      </motion.div>
+                    </div>
+                    {/* Right: Images 65% 2x3 grid */}
+                    <div className="w-full md:w-[79%] grid grid-cols-3 gap-5 content-center">
+                      {[0, 1, 2, 3, 4, 5].map((slotIdx) => {
+                        const imgIdx = slotIdx + 2;
+                        const imgUrl = category.images?.[imgIdx];
+                        return (
+                          <motion.div
+                            key={`2026-cele-${slotIdx}`}
+                            initial={{ opacity: 0, scale: 0.9 }}
+                            whileInView={{ opacity: 1, scale: 1 }}
+                            viewport={{ once: true }}
+                            transition={{ delay: slotIdx * 0.08 }}
+                            onClick={() => setSelectedImage(`2026-img-${slotIdx}`)}
+                            className="relative overflow-hidden rounded-[24px] shadow-lg cursor-pointer group aspect-square"
+                          >
+                            {imgUrl ? (
+                              <img
+                                src={imgUrl}
+                                alt={`2026 Celebration ${slotIdx + 1}`}
+                                className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                              />
+                            ) : (
+                              <>
+                                <div className="absolute inset-0 bg-gradient-to-br from-emerald-500 to-teal-400 transition-transform duration-500 group-hover:scale-110" />
+                                <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors duration-300" />
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                              </>
+                            )}
+                          </motion.div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                </>
               )}
-              <div className={`grid gap-4 sm:gap-5 ${
-                category.imageCount === 4 || category.imageCount === 8
+              {category.label !== "Result Celebration" && (
+                <div className={`grid gap-4 sm:gap-5 ${category.imageCount === 4 || category.imageCount === 8
                   ? category.label === "Result Celebration"
                     ? "grid-cols-2 md:grid-cols-3"
                     : "grid-cols-2 md:grid-cols-4"
                   : category.imageCount === 5
-                  ? "grid-cols-2 md:grid-cols-3"
-                  : "grid-cols-1 sm:grid-cols-2 md:grid-cols-3"
-              }`}>
-                {Array.from({ length: category.imageCount }).map((_, imgIdx) => {
-                  if (category.smallVideo && category.videos?.[imgIdx]) return null;
-                  const id = `${catIdx}-${imgIdx}`;
-                  return (
-                    <motion.div
-                      key={id}
-                      initial={{ opacity: 0, scale: 0.9 }}
-                      whileInView={{ opacity: 1, scale: 1 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: imgIdx * 0.08 }}
-                      onClick={() => setSelectedImage(id)}
-                      className={`relative overflow-hidden rounded-2xl shadow-lg cursor-pointer group ${
-                        category.videos?.[imgIdx] && !category.smallVideo ? "md:col-span-3" : !category.smallVideo && imgIdx === 0 ? "md:col-span-2 md:row-span-2" : ""
-                      }`}
-                      style={category.videos?.[imgIdx] ? undefined : { minHeight: "180px" }}
-                    >
-                      {category.videos?.[imgIdx] && !category.smallVideo ? (
-                        <div className="w-full">
-                          <video
-                            src={category.videos[imgIdx]}
-                            autoPlay
-                            loop
-                            muted
-                            playsInline
-                            className="w-full h-auto max-h-[70vh] object-contain"
+                    ? "grid-cols-2 md:grid-cols-3"
+                    : "grid-cols-1 sm:grid-cols-2 md:grid-cols-3"
+                  }`}>
+                  {Array.from({ length: category.imageCount }).map((_, imgIdx) => {
+                    if (category.smallVideo && category.videos?.[imgIdx]) return null;
+                    const id = `${catIdx}-${imgIdx}`;
+                    return (
+                      <motion.div
+                        key={id}
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: imgIdx * 0.08 }}
+                        onClick={() => setSelectedImage(id)}
+                        className={`relative overflow-hidden rounded-2xl shadow-lg cursor-pointer group ${category.videos?.[imgIdx] && !category.smallVideo ? "md:col-span-3" : !category.smallVideo && imgIdx === 0 ? "md:col-span-2 md:row-span-2" : ""
+                          }`}
+                        style={category.videos?.[imgIdx] ? undefined : { minHeight: "180px" }}
+                      >
+                        {category.videos?.[imgIdx] && !category.smallVideo ? (
+                          <div className="w-full">
+                            <video
+                              src={category.videos[imgIdx]}
+                              autoPlay
+                              loop
+                              muted
+                              playsInline
+                              className="w-full h-auto max-h-[70vh] object-contain"
+                            />
+                          </div>
+                        ) : category.images?.[imgIdx] ? (
+                          <img
+                            src={category.images[imgIdx]}
+                            alt={`${category.label} ${imgIdx + 1}`}
+                            className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                           />
-                        </div>
-                      ) : category.images?.[imgIdx] ? (
-                        <img
-                          src={category.images[imgIdx]}
-                          alt={`${category.label} ${imgIdx + 1}`}
-                          className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                        />
-                      ) : (
-                        <>
-                          <div className={`absolute inset-0 bg-gradient-to-br ${category.color} transition-transform duration-500 group-hover:scale-110`} />
-                          <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors duration-300" />
-                          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-                        </>
-                      )}
-                      {!category.images && !category.videos && (
-                        <div className="absolute inset-0 flex items-center justify-center">
-                          <span className="text-6xl opacity-30 group-hover:opacity-50 group-hover:scale-125 transition-all duration-500 select-none">
-                            {category.label === "Class Room" && "📚"}
-                            {category.label === "Result Celebration" && "🏆"}
-                            {category.label === "Picnic" && "🌳"}
-                            {category.label === "Class with Students" && "👨‍🎓"}
-                          </span>
-                        </div>
-                      )}
-                      {!category.videos && (
-                        <div className="absolute bottom-0 left-0 right-0 p-3 sm:p-5 translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
-                          {category.label !== "Result Celebration" && (
-                            <p className="text-white font-semibold text-sm sm:text-lg">
-                              {category.label}
+                        ) : (
+                          <>
+                            <div className={`absolute inset-0 bg-gradient-to-br ${category.color} transition-transform duration-500 group-hover:scale-110`} />
+                            <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors duration-300" />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                          </>
+                        )}
+                        {!category.images && !category.videos && (
+                          <div className="absolute inset-0 flex items-center justify-center">
+                            <span className="text-6xl opacity-30 group-hover:opacity-50 group-hover:scale-125 transition-all duration-500 select-none">
+                              {category.label === "Class Room" && "📚"}
+                              {category.label === "Result Celebration" && "🏆"}
+                              {category.label === "Picnic" && "🌳"}
+                              {category.label === "Class with Students" && "👨‍🎓"}
+                            </span>
+                          </div>
+                        )}
+                        {!category.videos && (
+                          <div className="absolute bottom-0 left-0 right-0 p-3 sm:p-5 translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
+                            {category.label !== "Result Celebration" && (
+                              <p className="text-white font-semibold text-sm sm:text-lg">
+                                {category.label}
+                              </p>
+                            )}
+                            <p className="text-white/70 text-xs sm:text-sm mt-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                              Click to view
                             </p>
-                          )}
-                          <p className="text-white/70 text-xs sm:text-sm mt-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                            Click to view
-                          </p>
-                        </div>
-                      )}
-                    </motion.div>
-                  );
-                })}
-              </div>
+                          </div>
+                        )}
+                      </motion.div>
+                    );
+                  })}
+                </div>
+              )}
             </motion.div>
           ))}
         </div>
@@ -269,6 +334,34 @@ export default function GallerySection() {
               style={{ maxHeight: "90vh" }}
             >
               {(() => {
+                if (selectedImage.startsWith("2026-img-")) {
+                  const slotIdx = parseInt(selectedImage.split("-")[2]);
+                  const imgIdx = slotIdx + 2;
+                  const category = categories.find(c => c.label === "Result Celebration");
+                  const imageUrl = category?.images?.[imgIdx];
+                  return imageUrl ? (
+                    <img
+                      src={imageUrl}
+                      alt={`2026 Celebration ${slotIdx + 1}`}
+                      className="w-full h-auto max-h-[90vh] object-contain rounded-2xl"
+                    />
+                  ) : null;
+                }
+                if (selectedImage.startsWith("2026-vid-")) {
+                  const vidIdx = parseInt(selectedImage.split("-")[2]);
+                  const videoUrl = celebration2026Videos[vidIdx];
+                  return videoUrl ? (
+                    <video
+                      src={videoUrl}
+                      autoPlay
+                      loop
+                      muted
+                      playsInline
+                      controls
+                      className="w-full h-auto max-h-[90vh] rounded-2xl"
+                    />
+                  ) : null;
+                }
                 if (selectedImage.startsWith("2025-")) {
                   const imgIdx = parseInt(selectedImage.split("-")[1]);
                   const imageUrl = celebration2025Images[imgIdx];

@@ -1,10 +1,11 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 export default function NirmaanPreloader() {
   const [loading, setLoading] = useState(true);
+  const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
     document.body.dataset.preloader = "active";
@@ -20,9 +21,17 @@ export default function NirmaanPreloader() {
       document.body.dataset.preloader = "active";
       return;
     }
-
     document.body.dataset.preloader = "done";
   }, [loading]);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+    const play = () => video.play().catch(() => {});
+    play();
+    video.addEventListener("loadedmetadata", play, { once: true });
+    return () => video.removeEventListener("loadedmetadata", play);
+  }, []);
 
   return (
     <AnimatePresence>
@@ -47,6 +56,7 @@ export default function NirmaanPreloader() {
               className="overflow-hidden rounded-2xl"
             >
               <motion.video
+                ref={videoRef}
                 autoPlay
                 muted
                 playsInline
@@ -56,7 +66,6 @@ export default function NirmaanPreloader() {
                 transition={{ duration: 0.7, ease: "easeOut", delay: 0.15 }}
                 className="w-full"
                 onEnded={() => setLoading(false)}
-                onLoadedMetadata={(e) => e.currentTarget.play().catch(() => {})}
               >
                 <source
                   src="https://res.cloudinary.com/dkzmths4e/video/upload/q_auto:good,f_auto,vc_auto,w_384/v1782756214/newa29i66zesnxeo69pn.mp4"

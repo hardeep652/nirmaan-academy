@@ -147,9 +147,10 @@ export default function GallerySection() {
                             <video
                               src={videoUrl}
                               autoPlay
-                              loop
                               muted
                               playsInline
+                              loop
+                              preload="auto"
                               className="w-full h-full object-cover"
                             />
                           </div>
@@ -200,6 +201,7 @@ export default function GallerySection() {
                           loop
                           muted
                           playsInline
+                          preload="auto"
                           className="w-full h-full object-cover rounded-[24px]"
                         />
                       </motion.div>
@@ -268,9 +270,10 @@ export default function GallerySection() {
                             <video
                               src={category.videos[imgIdx]}
                               autoPlay
-                              loop
                               muted
                               playsInline
+                              loop
+                              preload="auto"
                               className="w-full h-auto max-h-[70vh] object-contain"
                             />
                           </div>
@@ -357,6 +360,7 @@ export default function GallerySection() {
                       loop
                       muted
                       playsInline
+                      preload="auto"
                       controls
                       className="w-full h-auto max-h-[90vh] rounded-2xl"
                     />
@@ -386,6 +390,7 @@ export default function GallerySection() {
                     loop
                     muted
                     playsInline
+                    preload="auto"
                     controls
                     className="w-full h-auto max-h-[90vh] rounded-2xl"
                   />

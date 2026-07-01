@@ -45,9 +45,15 @@ export default function NirmaanPreloader() {
               transition={{ type: "spring", stiffness: 180, damping: 20 }}
               className="overflow-hidden rounded-2xl"
             >
-              <motion.img
-                src="https://res.cloudinary.com/dkzmths4e/image/upload/fl_animated,q_auto:good/v1782756214/newa29i66zesnxeo69pn.mp4"
-                alt="Nirmaan Academy"
+              <motion.video
+                src="https://res.cloudinary.com/dkzmths4e/video/upload/q_auto:good/v1782756214/newa29i66zesnxeo69pn.mp4"
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="auto"
+                disableRemotePlayback
+                poster="https://res.cloudinary.com/dkzmths4e/video/upload/so_0/v1782756214/newa29i66zesnxeo69pn.jpg"
                 initial={{ opacity: 0, y: 20, scale: 0.96 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 transition={{ duration: 0.7, ease: "easeOut", delay: 0.15 }}

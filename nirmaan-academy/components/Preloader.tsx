@@ -10,8 +10,7 @@ const MIN_DISPLAY_MS = 2000;
 const FALLBACK_TIMEOUT_MS = 5000;
 
 export default function NirmaanPreloader() {
-  const [show, setShow] = useState(true);
-  const [alive, setAlive] = useState(true);
+  const [mounted, setMounted] = useState(true);
   const videoRef = useRef<HTMLVideoElement>(null);
   const cancelledRef = useRef(false);
   const startRef = useRef(Date.now());
@@ -19,7 +18,9 @@ export default function NirmaanPreloader() {
   useLayoutEffect(() => {
     document.body.dataset.preloader = "active";
     return () => {
-      delete document.body.dataset.preloader;
+      if (document.body.dataset.preloader === "active") {
+        delete document.body.dataset.preloader;
+      }
     };
   }, []);
 
@@ -29,11 +30,9 @@ export default function NirmaanPreloader() {
 
     const dismiss = () => {
       if (cancelledRef.current) return;
-      setShow(false);
+      cancelledRef.current = true;
       document.body.dataset.preloader = "done";
-      setTimeout(() => {
-        if (!cancelledRef.current) setAlive(false);
-      }, 800);
+      setMounted(false);
     };
 
     const onReady = () => {
@@ -62,16 +61,16 @@ export default function NirmaanPreloader() {
   useEffect(() => {
     const timer = setTimeout(() => {
       if (cancelledRef.current) return;
-      setShow(false);
+      cancelledRef.current = true;
       document.body.dataset.preloader = "done";
-      setTimeout(() => setAlive(false), 800);
+      setMounted(false);
     }, FALLBACK_TIMEOUT_MS);
     return () => clearTimeout(timer);
   }, []);
 
   return (
     <AnimatePresence>
-      {alive && (
+      {mounted && (
         <motion.div
           key="preloader"
           exit={{ opacity: 0 }}

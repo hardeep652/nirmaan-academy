@@ -153,6 +153,7 @@ export default function GallerySection() {
                               preload="auto"
                               className="w-full h-full object-cover"
                               onLoadedMetadata={(e) => e.currentTarget.play().catch(() => {})}
+                              onEnded={(e) => e.currentTarget.play().catch(() => {})}
                             />
                           </div>
                         </motion.div>
@@ -205,6 +206,7 @@ export default function GallerySection() {
                           preload="auto"
                           className="w-full h-full object-cover rounded-[24px]"
                           onLoadedMetadata={(e) => e.currentTarget.play().catch(() => {})}
+                          onEnded={(e) => e.currentTarget.play().catch(() => {})}
                         />
                       </motion.div>
                     </div>
@@ -278,6 +280,7 @@ export default function GallerySection() {
                               preload="auto"
                               className="w-full h-auto max-h-[70vh] object-contain"
                               onLoadedMetadata={(e) => e.currentTarget.play().catch(() => {})}
+                              onEnded={(e) => e.currentTarget.play().catch(() => {})}
                             />
                           </div>
                         ) : category.images?.[imgIdx] ? (
@@ -367,6 +370,7 @@ export default function GallerySection() {
                       controls
                       className="w-full h-auto max-h-[90vh] rounded-2xl"
                       onLoadedMetadata={(e) => e.currentTarget.play().catch(() => {})}
+                      onEnded={(e) => e.currentTarget.play().catch(() => {})}
                     />
                   ) : null;
                 }
@@ -398,6 +402,7 @@ export default function GallerySection() {
                     controls
                     className="w-full h-auto max-h-[90vh] rounded-2xl"
                     onLoadedMetadata={(e) => e.currentTarget.play().catch(() => {})}
+                    onEnded={(e) => e.currentTarget.play().catch(() => {})}
                   />
                 ) : imageUrl ? (
                   <img

@@ -19,7 +19,7 @@ const categories: Category[] = [
     color: "from-blue-500 to-cyan-400",
     imageCount: 1,
     videos: [
-      "https://res.cloudinary.com/dkzmths4e/video/upload/q_auto:good/ayd0ikctbjt3dqz8mznx",
+      "https://res.cloudinary.com/dkzmths4e/video/upload/q_auto:good/ayd0ikctbjt3dqz8mznx.mp4",
     ],
   },
   {
@@ -149,11 +149,13 @@ export default function GallerySection() {
                               autoPlay
                               muted
                               playsInline
-                              loop
                               preload="auto"
                               className="w-full h-full object-cover"
                               onLoadedMetadata={(e) => e.currentTarget.play().catch(() => {})}
-                              onEnded={(e) => e.currentTarget.play().catch(() => {})}
+                              onEnded={(e) => {
+                                e.currentTarget.currentTime = 0;
+                                e.currentTarget.play().catch(() => {});
+                              }}
                             />
                           </div>
                         </motion.div>
@@ -200,13 +202,15 @@ export default function GallerySection() {
                         <video
                           src={celebration2026Videos[0]}
                           autoPlay
-                          loop
                           muted
                           playsInline
                           preload="auto"
                           className="w-full h-full object-cover rounded-[24px]"
                           onLoadedMetadata={(e) => e.currentTarget.play().catch(() => {})}
-                          onEnded={(e) => e.currentTarget.play().catch(() => {})}
+                          onEnded={(e) => {
+                            e.currentTarget.currentTime = 0;
+                            e.currentTarget.play().catch(() => {});
+                          }}
                         />
                       </motion.div>
                     </div>
@@ -276,11 +280,13 @@ export default function GallerySection() {
                               autoPlay
                               muted
                               playsInline
-                              loop
                               preload="auto"
                               className="w-full h-auto max-h-[70vh] object-contain"
                               onLoadedMetadata={(e) => e.currentTarget.play().catch(() => {})}
-                              onEnded={(e) => e.currentTarget.play().catch(() => {})}
+                              onEnded={(e) => {
+                                e.currentTarget.currentTime = 0;
+                                e.currentTarget.play().catch(() => {});
+                              }}
                             />
                           </div>
                         ) : category.images?.[imgIdx] ? (
@@ -363,14 +369,16 @@ export default function GallerySection() {
                     <video
                       src={videoUrl}
                       autoPlay
-                      loop
                       muted
                       playsInline
                       preload="auto"
                       controls
                       className="w-full h-auto max-h-[90vh] rounded-2xl"
                       onLoadedMetadata={(e) => e.currentTarget.play().catch(() => {})}
-                      onEnded={(e) => e.currentTarget.play().catch(() => {})}
+                      onEnded={(e) => {
+                        e.currentTarget.currentTime = 0;
+                        e.currentTarget.play().catch(() => {});
+                      }}
                     />
                   ) : null;
                 }
@@ -395,14 +403,16 @@ export default function GallerySection() {
                   <video
                     src={videoUrl}
                     autoPlay
-                    loop
                     muted
                     playsInline
                     preload="auto"
                     controls
                     className="w-full h-auto max-h-[90vh] rounded-2xl"
                     onLoadedMetadata={(e) => e.currentTarget.play().catch(() => {})}
-                    onEnded={(e) => e.currentTarget.play().catch(() => {})}
+                    onEnded={(e) => {
+                      e.currentTarget.currentTime = 0;
+                      e.currentTarget.play().catch(() => {});
+                    }}
                   />
                 ) : imageUrl ? (
                   <img

@@ -107,7 +107,7 @@ export default function PlacementReportSection() {
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true, amount: 0.15 }}
-                className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6"
+                className="grid grid-cols-2 gap-4 sm:gap-6"
               >
                 {students.map((student) => (
                   <motion.div key={student.id} variants={itemVariants}>

@@ -98,7 +98,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${sora.variable} ${inter.variable} ${playfair.variable} scroll-smooth h-full antialiased`}
+      className={`${sora.variable} ${inter.variable} ${playfair.variable} min-h-full antialiased`}
     >
       <head>
         <link
@@ -108,7 +108,7 @@ export default function RootLayout({
         <link rel="preconnect" href="https://res.cloudinary.com" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="https://res.cloudinary.com" />
       </head>
-      <body className="min-h-full flex flex-col bg-white">
+      <body className="min-h-screen flex flex-col bg-white">
         <AppShell>
           <AppwriteInitializer />
           <SecurityEnforcer />

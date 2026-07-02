@@ -20,10 +20,8 @@ export default function NirmaanPreloader() {
 
   useLayoutEffect(() => {
     document.body.dataset.preloader = "active";
-    document.body.style.overflow = "hidden";
     return () => {
       delete document.body.dataset.preloader;
-      document.body.style.overflow = "";
     };
   }, []);
 
@@ -59,7 +57,11 @@ export default function NirmaanPreloader() {
       video.addEventListener("loadedmetadata", onReady, { once: true });
     }
 
-    video.load();
+    try {
+      video.load();
+    } catch {
+      // Mobile browsers may throw on load; fallback timeout handles dismiss
+    }
     return () => {
       cancelledRef.current = true;
     };

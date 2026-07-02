@@ -30,9 +30,7 @@
 }
 
 /* Base Styles */
-html {
-  scroll-behavior: smooth;
-}
+
 
 body {
   font-family: var(--font-inter);
@@ -40,9 +38,7 @@ body {
   background-color: var(--white);
 }
 
-body[data-preloader="active"] {
-  overflow: hidden;
-}
+
 
 @media (hover: hover) and (pointer: fine) {
   * {

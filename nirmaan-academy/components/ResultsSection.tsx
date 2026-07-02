@@ -140,24 +140,6 @@ export default function ResultsSection() {
         ) : rankers.length > 0 ? (
           <>
             <div className="relative">
-              <button
-                onClick={prev}
-                className="hidden md:flex absolute left-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 items-center justify-center rounded-full bg-white/80 shadow-md hover:bg-white transition-colors"
-                aria-label="Previous"
-              >
-                <svg className="w-5 h-5 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                </svg>
-              </button>
-              <button
-                onClick={next}
-                className="hidden md:flex absolute right-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 items-center justify-center rounded-full bg-white/80 shadow-md hover:bg-white transition-colors"
-                aria-label="Next"
-              >
-                <svg className="w-5 h-5 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                </svg>
-              </button>
               <div
                 ref={scrollRef}
                 className="flex gap-4 sm:gap-6 overflow-x-auto scrollbar-hidden py-4 -mx-4 sm:-mx-0 px-4 sm:px-0"

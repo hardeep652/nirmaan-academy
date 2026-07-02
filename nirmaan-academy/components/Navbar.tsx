@@ -8,7 +8,7 @@ import BrandLogo from "./BrandLogo";
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [hasScrolled, setHasScrolled] = useState(false);
-  const [showLogo, setShowLogo] = useState(false);
+  const [showLogo] = useState(true);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -16,21 +16,6 @@ export default function Navbar() {
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  useEffect(() => {
-    setShowLogo(document.body.dataset.preloader !== "active");
-
-    const observer = new MutationObserver(() => {
-      setShowLogo(document.body.dataset.preloader !== "active");
-    });
-
-    observer.observe(document.body, {
-      attributes: true,
-      attributeFilter: ["data-preloader"],
-    });
-
-    return () => observer.disconnect();
   }, []);
 
   const navLinks = [

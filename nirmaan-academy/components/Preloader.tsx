@@ -52,16 +52,12 @@ export default function NirmaanPreloader() {
     if (video.readyState >= HTMLMediaElement.HAVE_FUTURE_DATA) {
       onReady();
     } else {
-      video.addEventListener("canplay", onReady, { once: true });
-      video.addEventListener("canplaythrough", onReady, { once: true });
-      video.addEventListener("loadedmetadata", onReady, { once: true });
+      const onCanPlay = () => onReady();
+      video.addEventListener("canplay", onCanPlay, { once: true });
+      video.addEventListener("canplaythrough", onCanPlay, { once: true });
+      video.addEventListener("loadedmetadata", onCanPlay, { once: true });
     }
 
-    try {
-      video.load();
-    } catch {
-      // Mobile browsers may throw on load; fallback timeout handles dismiss
-    }
     return () => {
       cancelledRef.current = true;
     };

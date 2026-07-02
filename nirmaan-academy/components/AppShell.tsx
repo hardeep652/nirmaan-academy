@@ -1,35 +1,19 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { AnimatePresence, LayoutGroup } from "framer-motion";
-import Preloader from "./Preloader";
+import { useEffect } from "react";
+import { LayoutGroup } from "framer-motion";
 
 type AppShellProps = {
   children: React.ReactNode;
 };
 
 export default function AppShell({ children }: AppShellProps) {
-  const [isLoading, setIsLoading] = useState(true);
-
   useEffect(() => {
-    if (!isLoading) {
-      document.body.style.overflow = "";
-      return;
-    }
-
-    const previousOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-
-    return () => {
-      document.body.style.overflow = previousOverflow;
-    };
-  }, [isLoading]);
+    document.body.style.overflow = "";
+  }, []);
 
   return (
     <LayoutGroup>
-      <AnimatePresence mode="wait">
-        {isLoading ? <Preloader onComplete={() => setIsLoading(false)} /> : null}
-      </AnimatePresence>
       {children}
     </LayoutGroup>
   );

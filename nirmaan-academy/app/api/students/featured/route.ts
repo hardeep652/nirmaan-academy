@@ -4,7 +4,7 @@ import { query } from "@/lib/prisma";
 export async function GET() {
   try {
     const result = await query(
-      'SELECT image_url, student_name, course, marks, display_order FROM student_data WHERE featured = true ORDER BY display_order ASC'
+      'SELECT image_url, student_name, course, marks, rank, display_order FROM student_data WHERE featured = true ORDER BY display_order ASC'
     );
 
     const topRankers = result.rows.map((s: any) => ({
@@ -12,6 +12,7 @@ export async function GET() {
       studentName: s.student_name,
       course: s.course,
       percentage: s.marks,
+      rank: s.rank,
     }));
 
     return NextResponse.json(topRankers);

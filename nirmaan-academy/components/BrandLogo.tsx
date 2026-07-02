@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import { motion } from "framer-motion";
 
 const LOGO_SRC =
   "https://res.cloudinary.com/dkzmths4e/image/upload/v1781945973/lsqjzszlc5gwtbg7z4qg.png";
@@ -20,9 +19,7 @@ export default function BrandLogo({
   imageClassName = "",
 }: BrandLogoProps) {
   return (
-    <motion.div
-      layoutId="nirmaan-brand-logo"
-      transition={{ type: "spring", stiffness: 180, damping: 20 }}
+    <div
       className={`flex items-center justify-center ${sizeClassName} ${className}`.trim()}
     >
       <Image
@@ -35,6 +32,6 @@ export default function BrandLogo({
         style={{ width: "auto", height: "auto" }}
         unoptimized
       />
-    </motion.div>
+    </div>
   );
 }

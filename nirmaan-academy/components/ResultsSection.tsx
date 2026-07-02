@@ -11,6 +11,7 @@ interface TopRanker {
   studentName: string;
   course: string;
   percentage: number;
+  rank: number;
 }
 
 export default function ResultsSection() {
@@ -173,8 +174,8 @@ export default function ResultsSection() {
                         {ranker.studentName}
                       </h3>
 
-                      <p className="text-orange-600 font-bold text-center mt-2 text-sm sm:text-base">
-                        {ranker.percentage} Marks
+                      <p className="text-orange-600 font-bold text-center mt-1 text-xs sm:text-sm leading-tight whitespace-nowrap">
+                        Rank: {ranker.rank} | Marks: {ranker.percentage}
                       </p>
 
                       <div className="mt-3 sm:mt-4 text-center">

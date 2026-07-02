@@ -128,7 +128,7 @@ export default function PlacementReportSection() {
 
                         {/* Content */}
                         <div className="min-w-0 flex-grow text-center sm:text-left">
-                          <h4 className="mb-1 text-lg font-bold text-gray-900 sm:text-xl">
+                          <h4 className="mb-1 text-lg font-bold text-gray-900 sm:text-xl whitespace-nowrap">
                             {student.studentName}
                           </h4>
                           

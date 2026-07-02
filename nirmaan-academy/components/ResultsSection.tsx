@@ -3,7 +3,6 @@
 import { motion } from "framer-motion";
 import SectionBadge from "./ui/SectionBadge";
 import PremiumCard from "./ui/PremiumCard";
-import AGR from "./AGR";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 interface TopRanker {
@@ -151,9 +150,6 @@ export default function ResultsSection() {
                 {displayItems.map((ranker, idx) => (
                   <div key={idx} className="flex-shrink-0 w-48 sm:w-56 snap-start">
                     <PremiumCard className="relative text-center h-full">
-                      <div className="absolute top-3 sm:top-4 right-3 sm:right-4 px-2 sm:px-3 py-0.5 sm:py-1 bg-orange-500 text-white text-xs font-bold rounded-full">
-                        <AGR>AGR</AGR> #{idx >= rankers.length ? 1 : idx + 1}
-                      </div>
 
                       <div className="w-24 h-24 sm:w-32 sm:h-32 rounded-full overflow-hidden bg-gradient-to-br from-blue-400 to-orange-400 flex items-center justify-center text-white font-semibold mx-auto mb-4 mt-2">
                         {ranker.imageUrl ? (

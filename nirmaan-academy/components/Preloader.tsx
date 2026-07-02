@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useCallback } from "react";
 import { motion } from "framer-motion";
 
 type PreloaderProps = {
@@ -10,53 +10,51 @@ type PreloaderProps = {
 export default function Preloader({ onComplete }: PreloaderProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const completedRef = useRef(false);
-  const [isPlaying, setIsPlaying] = useState(false);
 
-  const completeOnce = () => {
+  const completeOnce = useCallback(() => {
     if (completedRef.current) return;
     completedRef.current = true;
     onComplete();
-  };
+  }, [onComplete]);
 
-  const tryPlay = () => {
+  const tryPlay = useCallback(() => {
     const video = videoRef.current;
     if (!video || completedRef.current) return;
 
-    video.setAttribute("playsinline", "true");
-    video.setAttribute("webkit-playsinline", "true");
-    video.setAttribute("muted", "true");
     video.muted = true;
     video.defaultMuted = true;
     video.playsInline = true;
     video.disableRemotePlayback = true;
-    video.load();
 
-    void video.play().catch(() => {
-      // iOS can reject autoplay. The fallback timer will still advance the page.
-    });
-  };
+    video.setAttribute("playsinline", "true");
+    video.setAttribute("webkit-playsinline", "true");
+    video.setAttribute("muted", "true");
+    video.setAttribute("x5-playsinline", "true");
+
+    void video.play().catch(() => { });
+  }, []);
 
   useEffect(() => {
-    if (videoRef.current) {
-      videoRef.current.defaultMuted = true;
-      videoRef.current.setAttribute("playsinline", "true");
-      videoRef.current.setAttribute("webkit-playsinline", "true");
-      videoRef.current.setAttribute("muted", "true");
-    }
+    const video = videoRef.current;
+    if (!video) return;
 
-    const rafId = window.requestAnimationFrame(tryPlay);
-    const retryTimers = [
-      window.setTimeout(tryPlay, 80),
-      window.setTimeout(tryPlay, 250),
-      window.setTimeout(tryPlay, 600),
-    ];
-    const fallbackTimer = window.setTimeout(completeOnce, 9000);
-    return () => {
-      window.cancelAnimationFrame(rafId);
-      retryTimers.forEach((timerId) => window.clearTimeout(timerId));
-      window.clearTimeout(fallbackTimer);
-    };
-  }, []);
+    video.muted = true;
+    video.defaultMuted = true;
+    video.playsInline = true;
+
+    const attemptDelays = [0, 20, 60, 150, 300, 550];
+    const timers: NodeJS.Timeout[] = [];
+
+    attemptDelays.forEach((delay) => {
+      const timer = setTimeout(tryPlay, delay);
+      timers.push(timer);
+    });
+
+    const fallback = setTimeout(completeOnce, 7000);
+    timers.push(fallback);
+
+    return () => timers.forEach((t) => clearTimeout(t));
+  }, [tryPlay, completeOnce]);
 
   return (
     <motion.div
@@ -75,7 +73,7 @@ export default function Preloader({ onComplete }: PreloaderProps) {
         transition={{ duration: 0.55, ease: "easeOut" }}
         className="relative z-10 flex w-full max-w-[92vw] items-center justify-center px-4"
       >
-        <div className="relative inline-flex overflow-hidden rounded-[1.5rem] border border-white/15 bg-transparent shadow-[0_20px_60px_rgba(0,0,0,0.18)]">
+        <div className="relative inline-flex overflow-hidden rounded-[1.5rem] border border-white/10 bg-transparent shadow-[0_20px_60px_rgba(0,0,0,0.25)]">
           <video
             ref={videoRef}
             autoPlay
@@ -87,14 +85,14 @@ export default function Preloader({ onComplete }: PreloaderProps) {
             onLoadedData={tryPlay}
             onLoadedMetadata={tryPlay}
             onCanPlay={tryPlay}
-            onPlaying={() => setIsPlaying(true)}
-            className={`block h-auto w-auto max-h-[58vh] max-w-[68vw] object-contain bg-transparent transition-opacity duration-300 sm:max-h-[64vh] sm:max-w-[52vw] md:max-h-[68vh] md:max-w-[40vw] ${isPlaying ? "opacity-100" : "opacity-0"}`}
-            poster="/nirmaan-logo.png"
             onEnded={completeOnce}
             onError={completeOnce}
+            className="block max-h-[65vh] max-w-[75vw] sm:max-h-[70vh] sm:max-w-[58vw] md:max-h-[72vh] md:max-w-[46vw] 
+                       object-contain bg-transparent"
+            style={{ backgroundColor: "transparent" }}
           >
             <source
-              src="https://res.cloudinary.com/dkzmths4e/video/upload/v1782756214/newa29i66zesnxeo69pn.mp4"
+              src="https://res.cloudinary.com/dkzmths4e/video/upload/v1782990194/sh7i94dt4fyy7e0yoddi.mp4"
               type="video/mp4"
             />
           </video>

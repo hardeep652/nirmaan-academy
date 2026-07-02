@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 
 type PreloaderProps = {
@@ -7,6 +8,39 @@ type PreloaderProps = {
 };
 
 export default function Preloader({ onComplete }: PreloaderProps) {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const completedRef = useRef(false);
+
+  const completeOnce = () => {
+    if (completedRef.current) return;
+    completedRef.current = true;
+    onComplete();
+  };
+
+  const tryPlay = () => {
+    const video = videoRef.current;
+    if (!video || completedRef.current) return;
+
+    video.muted = true;
+    video.playsInline = true;
+    video.load();
+
+    void video.play().catch(() => {
+      // iOS can reject autoplay. The fallback timer will still advance the page.
+    });
+  };
+
+  useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.defaultMuted = true;
+    }
+
+    const fallbackTimer = window.setTimeout(completeOnce, 9000);
+    return () => {
+      window.clearTimeout(fallbackTimer);
+    };
+  }, []);
+
   return (
     <motion.div
       key="preloader"
@@ -17,6 +51,7 @@ export default function Preloader({ onComplete }: PreloaderProps) {
       role="status"
       aria-live="polite"
       aria-label="Loading Nirmaan Academy"
+      onClick={tryPlay}
     >
       <motion.div
         initial={{ scale: 0.94, y: 14, opacity: 0 }}
@@ -26,14 +61,20 @@ export default function Preloader({ onComplete }: PreloaderProps) {
       >
         <div className="relative inline-flex overflow-hidden rounded-[1.5rem] border border-white/15 bg-transparent shadow-[0_20px_60px_rgba(0,0,0,0.18)]">
           <video
+            ref={videoRef}
             autoPlay
             muted
             playsInline
             preload="auto"
+            controls={false}
+            disablePictureInPicture
+            onLoadedData={tryPlay}
+            onLoadedMetadata={tryPlay}
+            onCanPlay={tryPlay}
             className="block h-auto w-auto max-h-[58vh] max-w-[68vw] object-contain bg-transparent sm:max-h-[64vh] sm:max-w-[52vw] md:max-h-[68vh] md:max-w-[40vw]"
             poster="/nirmaan-logo.png"
-            onEnded={onComplete}
-            onError={onComplete}
+            onEnded={completeOnce}
+            onError={completeOnce}
           >
             <source
               src="https://res.cloudinary.com/dkzmths4e/video/upload/v1782756214/newa29i66zesnxeo69pn.mp4"

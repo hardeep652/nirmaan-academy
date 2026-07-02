@@ -12,16 +12,6 @@ export default function AppShell({ children }: AppShellProps) {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const timeoutId = window.setTimeout(() => {
-      setIsLoading(false);
-    }, 4000);
-
-    return () => {
-      window.clearTimeout(timeoutId);
-    };
-  }, []);
-
-  useEffect(() => {
     if (!isLoading) {
       document.body.style.overflow = "";
       return;

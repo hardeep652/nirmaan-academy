@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 
 type PreloaderProps = {
@@ -10,6 +10,7 @@ type PreloaderProps = {
 export default function Preloader({ onComplete }: PreloaderProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const completedRef = useRef(false);
+  const [isPlaying, setIsPlaying] = useState(false);
 
   const completeOnce = () => {
     if (completedRef.current) return;
@@ -21,8 +22,13 @@ export default function Preloader({ onComplete }: PreloaderProps) {
     const video = videoRef.current;
     if (!video || completedRef.current) return;
 
+    video.setAttribute("playsinline", "true");
+    video.setAttribute("webkit-playsinline", "true");
+    video.setAttribute("muted", "true");
     video.muted = true;
+    video.defaultMuted = true;
     video.playsInline = true;
+    video.disableRemotePlayback = true;
     video.load();
 
     void video.play().catch(() => {
@@ -33,10 +39,21 @@ export default function Preloader({ onComplete }: PreloaderProps) {
   useEffect(() => {
     if (videoRef.current) {
       videoRef.current.defaultMuted = true;
+      videoRef.current.setAttribute("playsinline", "true");
+      videoRef.current.setAttribute("webkit-playsinline", "true");
+      videoRef.current.setAttribute("muted", "true");
     }
 
+    const rafId = window.requestAnimationFrame(tryPlay);
+    const retryTimers = [
+      window.setTimeout(tryPlay, 80),
+      window.setTimeout(tryPlay, 250),
+      window.setTimeout(tryPlay, 600),
+    ];
     const fallbackTimer = window.setTimeout(completeOnce, 9000);
     return () => {
+      window.cancelAnimationFrame(rafId);
+      retryTimers.forEach((timerId) => window.clearTimeout(timerId));
       window.clearTimeout(fallbackTimer);
     };
   }, []);
@@ -51,7 +68,6 @@ export default function Preloader({ onComplete }: PreloaderProps) {
       role="status"
       aria-live="polite"
       aria-label="Loading Nirmaan Academy"
-      onClick={tryPlay}
     >
       <motion.div
         initial={{ scale: 0.94, y: 14, opacity: 0 }}
@@ -71,7 +87,8 @@ export default function Preloader({ onComplete }: PreloaderProps) {
             onLoadedData={tryPlay}
             onLoadedMetadata={tryPlay}
             onCanPlay={tryPlay}
-            className="block h-auto w-auto max-h-[58vh] max-w-[68vw] object-contain bg-transparent sm:max-h-[64vh] sm:max-w-[52vw] md:max-h-[68vh] md:max-w-[40vw]"
+            onPlaying={() => setIsPlaying(true)}
+            className={`block h-auto w-auto max-h-[58vh] max-w-[68vw] object-contain bg-transparent transition-opacity duration-300 sm:max-h-[64vh] sm:max-w-[52vw] md:max-h-[68vh] md:max-w-[40vw] ${isPlaying ? "opacity-100" : "opacity-0"}`}
             poster="/nirmaan-logo.png"
             onEnded={completeOnce}
             onError={completeOnce}

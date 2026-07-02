@@ -29,7 +29,6 @@ export default function Preloader({ onComplete }: PreloaderProps) {
     video.setAttribute("playsinline", "true");
     video.setAttribute("webkit-playsinline", "true");
     video.setAttribute("muted", "true");
-    video.setAttribute("x5-playsinline", "true");
 
     void video.play().catch(() => { });
   }, []);
@@ -42,16 +41,14 @@ export default function Preloader({ onComplete }: PreloaderProps) {
     video.defaultMuted = true;
     video.playsInline = true;
 
-    const attemptDelays = [0, 20, 60, 150, 300, 550];
+    const delays = [0, 10, 50, 120, 250, 400, 700];
     const timers: NodeJS.Timeout[] = [];
 
-    attemptDelays.forEach((delay) => {
-      const timer = setTimeout(tryPlay, delay);
-      timers.push(timer);
+    delays.forEach((delay) => {
+      timers.push(setTimeout(tryPlay, delay));
     });
 
-    const fallback = setTimeout(completeOnce, 7000);
-    timers.push(fallback);
+    timers.push(setTimeout(completeOnce, 6500));
 
     return () => timers.forEach((t) => clearTimeout(t));
   }, [tryPlay, completeOnce]);
@@ -87,8 +84,7 @@ export default function Preloader({ onComplete }: PreloaderProps) {
             onCanPlay={tryPlay}
             onEnded={completeOnce}
             onError={completeOnce}
-            className="block max-h-[65vh] max-w-[75vw] sm:max-h-[70vh] sm:max-w-[58vw] md:max-h-[72vh] md:max-w-[46vw] 
-                       object-contain bg-transparent"
+            className="block max-h-[65vh] max-w-[75vw] sm:max-h-[70vh] sm:max-w-[58vw] md:max-h-[72vh] md:max-w-[46vw] object-contain bg-transparent"
             style={{ backgroundColor: "transparent" }}
           >
             <source

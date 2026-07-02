@@ -17,41 +17,54 @@ export default function Preloader({ onComplete }: PreloaderProps) {
     onComplete();
   }, [onComplete]);
 
-  const tryPlay = useCallback(() => {
+  const forcePlay = useCallback(async () => {
     const video = videoRef.current;
     if (!video || completedRef.current) return;
 
-    video.muted = true;
-    video.defaultMuted = true;
-    video.playsInline = true;
-    video.disableRemotePlayback = true;
+    // Prevent multiple play calls
+    if (!video.paused) return;
 
-    video.setAttribute("playsinline", "true");
-    video.setAttribute("webkit-playsinline", "true");
-    video.setAttribute("muted", "true");
+    try {
+      video.muted = true;
+      video.defaultMuted = true;
+      video.volume = 0;
+      video.playsInline = true;
+      video.disableRemotePlayback = true;
 
-    void video.play().catch(() => { });
+      video.setAttribute("playsinline", "");
+      video.setAttribute("webkit-playsinline", "");
+      video.setAttribute("muted", "");
+
+      await video.play();
+    } catch (err) {
+      console.error("Autoplay failed:", err);
+    }
   }, []);
 
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
 
-    video.muted = true;
-    video.defaultMuted = true;
-    video.playsInline = true;
+    const start = () => {
+      void forcePlay();
+    };
 
-    const delays = [0, 10, 50, 120, 250, 400, 700];
-    const timers: NodeJS.Timeout[] = [];
+    // Initial attempt
+    start();
 
-    delays.forEach((delay) => {
-      timers.push(setTimeout(tryPlay, delay));
-    });
+    // Limited retries
+    const retry1 = setTimeout(start, 200);
+    const retry2 = setTimeout(start, 600);
 
-    timers.push(setTimeout(completeOnce, 6500));
+    // Fallback
+    const fallback = setTimeout(completeOnce, 7000);
 
-    return () => timers.forEach((t) => clearTimeout(t));
-  }, [tryPlay, completeOnce]);
+    return () => {
+      clearTimeout(retry1);
+      clearTimeout(retry2);
+      clearTimeout(fallback);
+    };
+  }, [forcePlay, completeOnce]);
 
   return (
     <motion.div
@@ -77,18 +90,18 @@ export default function Preloader({ onComplete }: PreloaderProps) {
             muted
             playsInline
             preload="auto"
+            poster=""
+            crossOrigin="anonymous"
             controls={false}
             disablePictureInPicture
-            onLoadedData={tryPlay}
-            onLoadedMetadata={tryPlay}
-            onCanPlay={tryPlay}
+            disableRemotePlayback
             onEnded={completeOnce}
             onError={completeOnce}
             className="block max-h-[65vh] max-w-[75vw] sm:max-h-[70vh] sm:max-w-[58vw] md:max-h-[72vh] md:max-w-[46vw] object-contain bg-transparent"
             style={{ backgroundColor: "transparent" }}
           >
             <source
-              src="https://res.cloudinary.com/dkzmths4e/video/upload/v1782990194/sh7i94dt4fyy7e0yoddi.mp4"
+              src="https://res.cloudinary.com/dkzmths4e/video/upload/f_mp4,q_auto,vc_h264/v1782990194/sh7i94dt4fyy7e0yoddi.mp4"
               type="video/mp4"
             />
           </video>
